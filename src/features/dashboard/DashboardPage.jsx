@@ -4,7 +4,7 @@ import ApplyLoanCard from "./ApplyLoanCard";
 import QuickAccessGrid from "./QuickAccessGrid";
 import RecentActivity from "./RecentActivity";
 import FinancialTips from "./FinancialTips";
-import BottomNavigation from "./BottomNavigation";
+import BottomNav from "../../components/layout/BottomNav";
 import "./dashboard.css";
 
 export default function DashboardPage() {
@@ -24,7 +24,7 @@ export default function DashboardPage() {
         <FinancialTips />
       </div>
 
-      <BottomNavigation />
+      <BottomNav />
     </main>
   );
 }

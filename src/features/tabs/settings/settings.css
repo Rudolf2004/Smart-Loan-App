@@ -1,10 +1,323 @@
- .settings-page h1{font-size:20px;color:#071746;margin:0}
-.muted{color:#6b7280;margin-top:6px}
-.settings-section{margin-top:12px;background:#fff;border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(8,45,105,0.03)}
-.setting-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f1f6ff}
-.setting-left{width:44px;height:44px;border-radius:10px;background:#f4f8ff;display:flex;align-items:center;justify-content:center}
-.setting-label{font-weight:800}
-.setting-meta{font-size:12px;color:#6b7280}
-.chev{color:#9aa4b2}
-.logout-row{padding-top:12px}
-.logout-btn{background:#fff;border:1px solid #fee2e2;padding:10px 12px;border-radius:10px;color:#c93a3a;display:flex;gap:8px;align-items:center}
+.settings-page {
+  min-height: 100vh;
+  background: #f6f9fd;
+  color: #071746;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.settings-page h1 {
+  margin: 0;
+  color: inherit;
+  font-size: 20px;
+}
+
+.muted {
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+.settings-message {
+  margin-top: 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #0757df;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.settings-section {
+  margin-top: 12px;
+  background: #fff;
+  border: 1px solid #edf3ff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(8, 45, 105, 0.04);
+}
+
+.settings-section h3 {
+  margin: 0 0 8px;
+  color: #071746;
+  font-size: 14px;
+}
+
+.setting-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid #f1f6ff;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.setting-row:last-child {
+  border-bottom: 0;
+}
+
+.setting-action {
+  cursor: pointer;
+}
+
+.setting-left {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #f4f8ff;
+  color: #0757df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setting-middle {
+  min-width: 0;
+  flex: 1;
+}
+
+.setting-label {
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.setting-meta {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.chev {
+  flex-shrink: 0;
+  color: #9aa4b2;
+}
+
+.settings-toggle {
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 999px;
+  background: #dbe4f0;
+  padding: 3px;
+  transition: background 0.2s ease;
+}
+
+.settings-toggle span {
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.18);
+  transition: transform 0.2s ease;
+}
+
+.settings-toggle.active {
+  background: #0757df;
+}
+
+.settings-toggle.active span {
+  transform: translateX(22px);
+}
+
+.logout-row {
+  padding-top: 12px;
+}
+
+.logout-btn {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #fee2e2;
+  border-radius: 12px;
+  background: #fff;
+  color: #c93a3a;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.settings-dark {
+  background: #0f172a !important;
+  color: #e5eefc;
+}
+
+.settings-dark .muted,
+.settings-dark .setting-meta {
+  color: #9fb0cc;
+}
+
+.settings-dark .settings-section,
+.settings-dark .logout-btn,
+.settings-dark .settings-modal {
+  background: #17233a;
+  border-color: #263957;
+}
+
+.settings-dark .settings-section h3,
+.settings-dark .setting-label,
+.settings-dark .settings-modal h2 {
+  color: #f8fbff;
+}
+
+.settings-dark .setting-row {
+  border-bottom-color: #263957;
+}
+
+.settings-dark .setting-left,
+.settings-dark .eye-btn,
+.settings-dark .show-passwords-btn,
+.settings-dark .cancel-btn {
+  background: #22314e;
+  color: #93c5fd;
+}
+
+.settings-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(15, 23, 42, 0.42);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+}
+
+.settings-modal {
+  width: 100%;
+  max-width: 398px;
+  border: 1px solid #edf3ff;
+  border-radius: 20px;
+  background: #fff;
+  padding: 18px;
+  box-shadow: 0 24px 70px rgba(8, 45, 105, 0.25);
+}
+
+.settings-modal.compact {
+  max-width: 360px;
+}
+
+.settings-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.settings-modal h2 {
+  margin: 0;
+  color: #071746;
+  font-size: 19px;
+}
+
+.settings-modal p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 12px;
+  background: #f4f8ff;
+  color: #334155;
+  display: grid;
+  place-items: center;
+}
+
+.password-settings-form {
+  display: grid;
+  gap: 12px;
+}
+
+.password-settings-field {
+  display: grid;
+  gap: 6px;
+}
+
+.password-settings-field span {
+  color: #33476f;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.password-settings-field input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #d2ddf2;
+  border-radius: 12px;
+  background: #fff;
+  color: #071746;
+  padding: 0 12px;
+  outline: none;
+}
+
+.password-settings-field input:focus {
+  border-color: #0757df;
+  box-shadow: 0 0 0 4px rgba(7, 87, 223, 0.12);
+}
+
+.show-passwords-btn {
+  min-height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: #f4f8ff;
+  color: #0757df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.save-password-btn,
+.confirm-logout-btn {
+  min-height: 48px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0757df, #0f766e);
+  color: #fff;
+  font-weight: 900;
+}
+
+.logout-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cancel-btn {
+  min-height: 46px;
+  border: none;
+  border-radius: 12px;
+  background: #f4f8ff;
+  color: #334155;
+  font-weight: 900;
+}
+
+.confirm-logout-btn {
+  background: #c93a3a;
+}
+
+@media (max-width: 430px) {
+  .settings-page {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .settings-modal-backdrop {
+    padding: 12px;
+  }
+}

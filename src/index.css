@@ -169,10 +169,22 @@ textarea.input-box:focus {
   border: 1px solid rgba(99, 179, 237, 0.28);
 }
 
-.bottom-navigation,
-nav.absolute.bottom-0 {
+.bottom-navigation {
   backdrop-filter: blur(18px);
   background: rgba(255, 255, 255, 0.94) !important;
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
+}
+
+.bottom-navigation .nav-item {
+  min-height: 54px;
+  line-height: 1.1;
+}
+
+.bottom-navigation .nav-item span {
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .review-card h3,
@@ -781,13 +793,12 @@ textarea.input-box {
     display: none;
   }
 
-  .bottom-navigation,
-  nav.absolute.bottom-0 {
+  .bottom-navigation {
     height: 68px !important;
   }
 
   .nav-item,
-  nav.absolute.bottom-0 a {
+  .bottom-navigation a {
     font-size: 10px !important;
   }
 }

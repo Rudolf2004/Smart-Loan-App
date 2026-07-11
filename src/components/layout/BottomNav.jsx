@@ -5,13 +5,13 @@ const navItems = [
   { label: "Home", path: "/dashboard", icon: Home },
   { label: "Loans", path: "/loans", icon: Landmark },
   { label: "Applications", path: "/applications", icon: FileText },
-  { label: "Notifications", path: "/notifications", icon: Bell },
+  { label: "Notifications", path: "/notifications", icon: Bell, badge: 3 },
   { label: "Settings", path: "/settings", icon: Settings },
 ];
 
 export default function BottomNav() {
   return (
-    <nav className="absolute bottom-0 left-0 right-0 h-20 bg-white border-t border-slate-100 px-2 flex items-center justify-around">
+    <nav className="bottom-navigation" aria-label="Primary navigation">
       {navItems.map((item) => {
         const Icon = item.icon;
 
@@ -20,12 +20,13 @@ export default function BottomNav() {
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 text-[11px] font-semibold ${
-                isActive ? "text-[#0F4C81]" : "text-slate-400"
-              }`
+              `nav-item ${isActive ? "active" : ""}`
             }
           >
-            <Icon size={21} />
+            <div className="nav-icon-wrap">
+              <Icon size={24} />
+              {item.badge ? <span className="nav-badge">{item.badge}</span> : null}
+            </div>
             <span>{item.label}</span>
           </NavLink>
         );

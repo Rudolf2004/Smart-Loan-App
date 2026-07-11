@@ -498,9 +498,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 5px;
   font-size: 12px;
   font-weight: 700;
+  text-decoration: none;
+  min-width: 0;
 }
 
 .nav-item.active {
@@ -509,6 +512,8 @@
 
 .nav-icon-wrap {
   position: relative;
+  display: grid;
+  place-items: center;
 }
 
 .nav-badge {
