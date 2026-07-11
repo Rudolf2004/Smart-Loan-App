@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import MobileShell from "../../../components/layout/MobileShell";
 import BottomNav from "../../../components/layout/BottomNav";
+import { useTheme } from "../../../contexts/useTheme";
 import {
   Bell,
   ChevronRight,
@@ -24,8 +25,8 @@ import "./settings.css";
 
 export default function SettingsPage() {
   const navigate = useNavigate();
+  const { theme, isDark, toggleTheme } = useTheme();
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
-  const [theme, setTheme] = useState("light");
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [showPasswords, setShowPasswords] = useState(false);
@@ -35,10 +36,6 @@ export default function SettingsPage() {
     confirm: "",
   });
   const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-  }, [theme]);
 
   const submitPassword = (event) => {
     event.preventDefault();
@@ -67,7 +64,7 @@ export default function SettingsPage() {
 
   return (
     <MobileShell>
-      <main className={`settings-page px-5 py-6 pb-28 ${theme === "dark" ? "settings-dark" : ""}`}>
+      <main className="settings-page px-5 py-6 pb-28">
         <h1>Settings</h1>
         <p className="muted">Manage your account and app preferences.</p>
 
@@ -100,16 +97,17 @@ export default function SettingsPage() {
           <SettingButton icon={Bell} label="Notification Settings" meta="Push alerts on" />
           <SettingButton icon={Globe} label="Language" meta="English" />
           <div className="setting-row">
-            <div className="setting-left">{theme === "dark" ? <Moon size={18} /> : <Sun size={18} />}</div>
+            <div className="setting-left">{isDark ? <Moon size={18} /> : <Sun size={18} />}</div>
             <div className="setting-middle">
               <div className="setting-label">Theme</div>
-              <div className="setting-meta">{theme === "dark" ? "Dark" : "Light"}</div>
+              <div className="setting-meta">{isDark ? "Dark" : "Light"}</div>
             </div>
             <button
-              className={`settings-toggle ${theme === "dark" ? "active" : ""}`}
+              className={`settings-toggle ${isDark ? "active" : ""}`}
               type="button"
-              onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-              aria-pressed={theme === "dark"}
+              onClick={toggleTheme}
+              aria-pressed={isDark}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
             >
               <span />
             </button>

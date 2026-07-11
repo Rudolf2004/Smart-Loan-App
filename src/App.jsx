@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router";
 
 import { LoanApplicationProvider } from "./contexts/LoanApplicationContext.jsx";
+import { ThemeProvider } from "./contexts/ThemeContext.jsx";
 import SplashPage from "./features/splash";
 import AuthWelcomePage from "./features/auth-welcome";
 import LoginPage from "./features/auth/login";
@@ -25,31 +26,33 @@ import RejectedResultPage from "./features/loan-application/result/RejectedResul
 
 export default function App() {
   return (
-    <LoanApplicationProvider>
-      <Routes>
-        <Route path="/" element={<SplashPage />} />
-        <Route path="/welcome" element={<AuthWelcomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/loans" element={<LoansPage />} />
-        <Route path="/applications" element={<ApplicationsPage />} />
-        <Route path="/notifications" element={<NotificationsPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/loan/personal-info" element={<PersonalInfoPage />} />
-        <Route path="/loan/employment-info" element={<EmploymentInfoPage />} />
-        <Route path="/loan/financial-info" element={<FinancialInfoPage />} />
-        <Route path="/loan/details" element={<LoanDetailsPage />} />
-        <Route path="/loan/collateral-info" element={<CollateralInfoPage />} />
-        <Route path="/loan/guarantor-info" element={<GuarantorInfoPage />} />
-        <Route path="/loan/review" element={<ReviewApplicationPage />} />
-        <Route path="/loan/processing" element={<ProcessingPage />} />
-        <Route path="/loan/result" element={<AssessmentResultPage />} />
-        <Route path="/loan/result/approved" element={<ApprovedResultPage />} />
-        <Route path="/loan/result/rejected" element={<RejectedResultPage />} />
-        <Route path="*" element={<DashboardPage />} />
-      </Routes>
-    </LoanApplicationProvider>
+    <ThemeProvider>
+      <LoanApplicationProvider>
+        <Routes>
+          <Route path="/" element={<SplashPage />} />
+          <Route path="/welcome" element={<AuthWelcomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/loans" element={<LoansPage />} />
+          <Route path="/applications" element={<ApplicationsPage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/loan/personal-info" element={<PersonalInfoPage />} />
+          <Route path="/loan/employment-info" element={<EmploymentInfoPage />} />
+          <Route path="/loan/financial-info" element={<FinancialInfoPage />} />
+          <Route path="/loan/details" element={<LoanDetailsPage />} />
+          <Route path="/loan/collateral-info" element={<CollateralInfoPage />} />
+          <Route path="/loan/guarantor-info" element={<GuarantorInfoPage />} />
+          <Route path="/loan/review" element={<ReviewApplicationPage />} />
+          <Route path="/loan/processing" element={<ProcessingPage />} />
+          <Route path="/loan/result" element={<AssessmentResultPage />} />
+          <Route path="/loan/result/approved" element={<ApprovedResultPage />} />
+          <Route path="/loan/result/rejected" element={<RejectedResultPage />} />
+          <Route path="*" element={<DashboardPage />} />
+        </Routes>
+      </LoanApplicationProvider>
+    </ThemeProvider>
   );
 }

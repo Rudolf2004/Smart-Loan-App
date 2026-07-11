@@ -474,6 +474,200 @@ textarea.input-box {
   display: none;
 }
 
+[data-theme="dark"] body {
+  background: #07111f;
+  color: #e5eefc;
+}
+
+[data-theme="dark"] .mobile-shell-wrap {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(20, 184, 166, 0.12), transparent 28%),
+    linear-gradient(145deg, #030712 0%, #0f172a 48%, #111827 100%);
+}
+
+[data-theme="dark"] .mobile-shell {
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+}
+
+[data-theme="dark"] .personal-page,
+[data-theme="dark"] .employment-page,
+[data-theme="dark"] .financial-page,
+[data-theme="dark"] .loan-detail-page,
+[data-theme="dark"] .collatrial-page,
+[data-theme="dark"] .guarantor-page,
+[data-theme="dark"] .review-page,
+[data-theme="dark"] .dashboard-page,
+[data-theme="dark"] .applications-page,
+[data-theme="dark"] .loans-page,
+[data-theme="dark"] .notifications-page,
+[data-theme="dark"] .settings-page,
+[data-theme="dark"] .processing-page,
+[data-theme="dark"] .result-page {
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(17, 24, 39, 0.98)),
+    #0f172a !important;
+  color: #e5eefc !important;
+}
+
+[data-theme="dark"] .personal-form-card,
+[data-theme="dark"] .employment-form-card,
+[data-theme="dark"] .financial-form-card,
+[data-theme="dark"] .loan-detail-form-card,
+[data-theme="dark"] .collatrial-form-card,
+[data-theme="dark"] .guarantor-form-card,
+[data-theme="dark"] .review-card,
+[data-theme="dark"] .additional-guarantor-card,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .summary-card,
+[data-theme="dark"] .app-item,
+[data-theme="dark"] .notif-item,
+[data-theme="dark"] .loan-item,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .settings-section,
+[data-theme="dark"] .processing-card,
+[data-theme="dark"] .result-card,
+[data-theme="dark"] .tips-card,
+[data-theme="dark"] .apply-card {
+  background: #17233a !important;
+  border-color: #263957 !important;
+  color: #e5eefc !important;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24) !important;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] .brand h1,
+[data-theme="dark"] .welcome-section h2,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .section-row h2,
+[data-theme="dark"] .app-title,
+[data-theme="dark"] .notif-title,
+[data-theme="dark"] .loan-title,
+[data-theme="dark"] .setting-label,
+[data-theme="dark"] .summary-value,
+[data-theme="dark"] .stat-value,
+[data-theme="dark"] .review-card p,
+[data-theme="dark"] .additional-guarantor-card p,
+[data-theme="dark"] .assessment-label {
+  color: #f8fbff !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] .muted,
+[data-theme="dark"] .title-desc,
+[data-theme="dark"] .activity-info p,
+[data-theme="dark"] .tips-card p,
+[data-theme="dark"] .app-sub,
+[data-theme="dark"] .notif-sub,
+[data-theme="dark"] .notif-meta,
+[data-theme="dark"] .loan-id,
+[data-theme="dark"] .progress-meta,
+[data-theme="dark"] .summary-label,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .setting-meta,
+[data-theme="dark"] .note,
+[data-theme="dark"] .range-values,
+[data-theme="dark"] .character-count,
+[data-theme="dark"] .security-note,
+[data-theme="dark"] .result-sub,
+[data-theme="dark"] .risk-meta {
+  color: #9fb0cc !important;
+}
+
+[data-theme="dark"] .input-box,
+[data-theme="dark"] input.input-box,
+[data-theme="dark"] select.input-box,
+[data-theme="dark"] textarea.input-box,
+[data-theme="dark"] .upload-input,
+[data-theme="dark"] .radio-box,
+[data-theme="dark"] .password-settings-field input {
+  background: #0f1a2d !important;
+  border-color: #314462 !important;
+  color: #e5eefc !important;
+  box-shadow: none;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: #7f90ad !important;
+}
+
+[data-theme="dark"] .input-icon,
+[data-theme="dark"] .setting-left,
+[data-theme="dark"] .activity-icon,
+[data-theme="dark"] .quick-card,
+[data-theme="dark"] .stat-icon,
+[data-theme="dark"] .loan-icon,
+[data-theme="dark"] .app-icon,
+[data-theme="dark"] .notif-icon,
+[data-theme="dark"] .review-card-icon,
+[data-theme="dark"] .extra-icon,
+[data-theme="dark"] .profile-avatar,
+[data-theme="dark"] .tips-icon {
+  background: #22314e !important;
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .info-box,
+[data-theme="dark"] .declaration-card,
+[data-theme="dark"] .risk-box,
+[data-theme="dark"] .recommendation {
+  background: #111f35 !important;
+  border-color: #263957 !important;
+  color: #cfe1ff !important;
+}
+
+[data-theme="dark"] .bottom-navigation {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border: 1px solid rgba(49, 68, 98, 0.7);
+}
+
+[data-theme="dark"] .nav-item,
+[data-theme="dark"] .chevron,
+[data-theme="dark"] .chev {
+  color: #8ea2c4 !important;
+}
+
+[data-theme="dark"] .nav-item.active {
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .save-btn,
+[data-theme="dark"] .btn-outline,
+[data-theme="dark"] .primary-outline,
+[data-theme="dark"] .filter,
+[data-theme="dark"] .pill,
+[data-theme="dark"] .secondary-btn,
+[data-theme="dark"] .btn-refresh,
+[data-theme="dark"] .contact-btn,
+[data-theme="dark"] .logout-btn {
+  background: #111f35 !important;
+  border-color: #314462 !important;
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .filter.active,
+[data-theme="dark"] .pill.active,
+[data-theme="dark"] .status.green,
+[data-theme="dark"] .status.yellow,
+[data-theme="dark"] .status.red,
+[data-theme="dark"] .badge {
+  border: 1px solid rgba(96, 165, 250, 0.24);
+}
+
+[data-theme="dark"] .progress-bar {
+  background: #263957 !important;
+}
+
+[data-theme="dark"] .activity-divider,
+[data-theme="dark"] .setting-row,
+[data-theme="dark"] .assessment-row {
+  border-color: #263957 !important;
+}
+
 @media (max-width: 430px) {
   .mobile-shell {
     box-shadow: none;
