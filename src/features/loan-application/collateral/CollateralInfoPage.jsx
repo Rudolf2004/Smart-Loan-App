@@ -2,15 +2,11 @@ import {
   ArrowLeft,
   ShieldCheck,
   FileText,
-  User,
-  Upload,
   Info,
   LogOut,
   ArrowRight,
-  ChevronDown,
   Circle,
   CircleDot,
-  MessageSquareText,
 } from "lucide-react";
 import "./collateralInfo.css";
 import { useNavigate } from "react-router";
@@ -26,10 +22,16 @@ const steps = [
   "Review",
 ];
 
-export default function CollatrialInfoPAGE() {
+export default function CollateralInfoPage() {
   const navigate = useNavigate();
   const { application, updateField } = useLoanApplication();
+  const hasCollateral = application.collateral === "yes";
+
   const goNext = () => {
+    if (hasCollateral && !application.collateral_value) {
+      return;
+    }
+
     navigate("/loan/guarantor-info");
   };
 
@@ -67,52 +69,105 @@ export default function CollatrialInfoPAGE() {
             <p className="step-count">Step 5 of 7</p>
             <h2>Collateral Information</h2>
             <p className="title-desc">
-              Tell us about any asset you want to use as collateral for this
-              loan.
+              Add collateral details only if the applicant is pledging an asset.
             </p>
           </div>
 
-          <div className="collatrial-art">🏠</div>
+          <div className="collatrial-art">Home</div>
         </section>
 
         <section className="collatrial-form-card">
-          <FormGroup label="Do you have any asset to use as collateral?">
+          <FormGroup label="Will you use collateral for this loan?">
             <div className="radio-grid">
-              <RadioBox active={application.collateral === "yes"} label="Yes, I have collateral" onClick={() => updateField("collateral", "yes")} />
-              <RadioBox active={application.collateral === "no"} label="No, I have no collateral" onClick={() => updateField("collateral", "no")} />
+              <RadioBox
+                active={hasCollateral}
+                label="Yes, I have collateral"
+                onClick={() => updateField("collateral", "yes")}
+              />
+              <RadioBox
+                active={!hasCollateral}
+                label="No collateral"
+                onClick={() => updateField("collateral", "no")}
+              />
             </div>
           </FormGroup>
 
           <div className="form-grid">
-            <FormGroup label="Estimated Value (GHS)" required>
-              <input className="input-box" type="number" value={application.collateral_value} onChange={(event) => updateField("collateral_value", event.target.value)} disabled={application.collateral === "no"} />
+            <FormGroup label="Estimated Value (GHS)" required={hasCollateral}>
+              <input
+                className="input-box"
+                type="number"
+                min="0"
+                placeholder={hasCollateral ? "e.g. 40000" : "Not required"}
+                value={application.collateral_value}
+                onChange={(event) => updateField("collateral_value", event.target.value)}
+                disabled={!hasCollateral}
+              />
+            </FormGroup>
+
+            <FormGroup label="Ownership Status">
+              <select
+                className="input-box"
+                value={application.collateral_ownership}
+                onChange={(event) => updateField("collateral_ownership", event.target.value)}
+                disabled={!hasCollateral}
+              >
+                <option value="sole_ownership">Sole Ownership</option>
+                <option value="joint_ownership">Joint Ownership</option>
+                <option value="family_property">Family Property</option>
+                <option value="not_applicable">Not Applicable</option>
+              </select>
             </FormGroup>
           </div>
 
-          <div className="form-grid">
-            <FormGroup label="Ownership Status" required>
-              <Input icon={<User />} value="Sole Ownership" dropdown />
-            </FormGroup>
-
-            <FormGroup label="Supporting Document" required>
-              <UploadInput />
-            </FormGroup>
-          </div>
+          <FormGroup label="Supporting Document">
+            <label className={`upload-input ${!hasCollateral ? "disabled" : ""}`}>
+              <div className="input-icon">
+                <FileText />
+              </div>
+              <span className="input-value">
+                {application.collateral_document || "Choose a document"}
+              </span>
+              <span className="upload-button">Browse</span>
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png"
+                disabled={!hasCollateral}
+                onChange={(event) => {
+                  const fileName = event.target.files?.[0]?.name || "";
+                  updateField("collateral_document", fileName);
+                }}
+              />
+            </label>
+          </FormGroup>
 
           <FormGroup label="Any existing encumbrance on the asset?">
             <div className="radio-grid">
-              <RadioBox active label="No" />
-              <RadioBox label="Yes" />
+              <RadioBox
+                active={application.collateral_encumbrance === "no"}
+                label="No"
+                onClick={() => updateField("collateral_encumbrance", "no")}
+                disabled={!hasCollateral}
+              />
+              <RadioBox
+                active={application.collateral_encumbrance === "yes"}
+                label="Yes"
+                onClick={() => updateField("collateral_encumbrance", "yes")}
+                disabled={!hasCollateral}
+              />
             </div>
           </FormGroup>
 
-          <FormGroup label="Additional Notes (Optional)">
-            <Input
-              icon={<MessageSquareText />}
-              value="Enter any additional information about your collateral..."
-              muted
+          <FormGroup label="Additional Notes">
+            <textarea
+              className="input-box tall"
+              maxLength={250}
+              placeholder={hasCollateral ? "Add any important collateral details." : "Not required"}
+              value={application.collateral_notes}
+              onChange={(event) => updateField("collateral_notes", event.target.value)}
+              disabled={!hasCollateral}
             />
-            <p className="character-count">0/250 characters</p>
+            <p className="character-count">{application.collateral_notes.length}/250 characters</p>
           </FormGroup>
 
           <div className="info-box collateral-info-box">
@@ -120,11 +175,10 @@ export default function CollatrialInfoPAGE() {
             <div>
               <h3>Why we need this information</h3>
               <p>
-                Collateral reduces the risk of lending and may help you qualify
-                for higher loan amounts and better interest rates.
+                Collateral may reduce lending risk and can improve the strength of an
+                application when the asset details are clear.
               </p>
             </div>
-            <div className="safe-art">🔐</div>
           </div>
 
           <div className="collatrial-actions">
@@ -155,38 +209,16 @@ function FormGroup({ label, required, children }) {
   );
 }
 
-function Input({ icon, value, dropdown, muted }) {
+function RadioBox({ active, label, onClick, disabled = false }) {
   return (
-    <div className="input-box">
-      <div className="input-icon">{icon}</div>
-      <div className={`input-value ${muted ? "muted" : ""}`}>{value}</div>
-      {dropdown && <ChevronDown className="dropdown-icon" size={24} />}
-    </div>
-  );
-}
-
-function RadioBox({ active, label, onClick }) {
-  return (
-    <button className={`radio-box ${active ? "active" : ""}`} onClick={onClick} type="button">
+    <button
+      className={`radio-box ${active ? "active" : ""}`}
+      onClick={onClick}
+      type="button"
+      disabled={disabled}
+    >
       {active ? <CircleDot size={24} /> : <Circle size={24} />}
       <span>{label}</span>
     </button>
-  );
-}
-
-function UploadInput() {
-  return (
-    <div className="upload-input">
-      <div className="input-icon">
-        <FileText />
-      </div>
-
-      <div className="input-value">Title Deed</div>
-
-      <button>
-        <Upload size={20} />
-        Upload
-      </button>
-    </div>
   );
 }

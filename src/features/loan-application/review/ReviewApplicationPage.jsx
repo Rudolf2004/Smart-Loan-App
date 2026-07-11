@@ -35,6 +35,9 @@ export default function ReviewApplicationPage() {
     navigate("/loan/processing");
   };
 
+  const formatChoice = (value) =>
+    value ? value.replaceAll("_", " ").replace(/\b\w/g, (char) => char.toUpperCase()) : "-";
+
   return (
     <main className="review-page">
       <div className="review-container">
@@ -79,6 +82,7 @@ export default function ReviewApplicationPage() {
           <ReviewCard
             icon={<User />}
             title="Personal Information"
+            onEdit={() => navigate("/loan/personal-info")}
             lines={[
               `Age: ${application.age || "-"}`,
               `Annual Income: ${application.income || "-"}`,
@@ -89,8 +93,9 @@ export default function ReviewApplicationPage() {
           <ReviewCard
             icon={<BriefcaseBusiness />}
             title="Employment"
+            onEdit={() => navigate("/loan/employment-info")}
             lines={[
-              `Employment Status: ${application.employment_status || "-"}`,
+              `Employment Status: ${formatChoice(application.employment_status)}`,
               `Years Employed: ${application.years_employed || "-"}`,
             ]}
           />
@@ -98,30 +103,46 @@ export default function ReviewApplicationPage() {
           <ReviewCard
             icon={<PieChart />}
             title="Financial"
+            onEdit={() => navigate("/loan/financial-info")}
             lines={[
               `Requested Loan Amount: ${application.loan_amount || "-"}`,
-              `Loan Purpose: ${application.loan_purpose || "-"}`,
+              `Loan Purpose: ${formatChoice(application.loan_purpose)}`,
               `Existing Debt: ${application.existing_debt || "-"}`,
             ]}
           />
 
           <ReviewCard
             icon={<FileText />}
-            title="Security"
+            title="Loan Details"
+            onEdit={() => navigate("/loan/details")}
             lines={[
-              `Collateral: ${application.collateral || "-"}`,
+              `Loan Type: ${formatChoice(application.loan_type)}`,
+              `Repayment Period: ${application.repayment_period || "-"} months`,
+              `Disbursement Date: ${application.disbursement_date || "-"}`,
+            ]}
+          />
+
+          <ReviewCard
+            icon={<Home />}
+            title="Collateral"
+            onEdit={() => navigate("/loan/collateral-info")}
+            lines={[
+              `Collateral: ${formatChoice(application.collateral)}`,
               `Collateral Value: ${application.collateral_value || "-"}`,
-              `Has Guarantor: ${application.has_guarantor || "-"}`,
+              `Ownership: ${formatChoice(application.collateral_ownership)}`,
+              `Document: ${application.collateral_document || "-"}`,
             ]}
           />
 
           <ReviewCard
             icon={<Home />}
             title="Guarantor"
+            onEdit={() => navigate("/loan/guarantor-info")}
             lines={[
+              `Has Guarantor: ${formatChoice(application.has_guarantor)}`,
               `Guarantor Count: ${application.guarantor_count || "0"}`,
               `Guarantor 1 Income: ${application.guarantor1_income || "-"}`,
-              `Guarantor 1 Valid ID: ${application.guarantor1_valid_id || "-"}`,
+              `Guarantor 1 Valid ID: ${formatChoice(application.guarantor1_valid_id)}`,
             ]}
           />
         </section>
@@ -152,7 +173,7 @@ export default function ReviewApplicationPage() {
         </section>
 
         <div className="review-actions">
-          <button className="save-btn">
+          <button className="save-btn" onClick={() => navigate("/dashboard")}>
             <Save size={24} />
             Save & Exit
           </button>
@@ -172,7 +193,7 @@ export default function ReviewApplicationPage() {
   );
 }
 
-function ReviewCard({ icon, title, lines }) {
+function ReviewCard({ icon, title, lines, onEdit }) {
   return (
     <div className="review-card">
       <div className="review-card-icon">{icon}</div>
@@ -184,7 +205,7 @@ function ReviewCard({ icon, title, lines }) {
         ))}
       </div>
 
-      <button className="edit-btn">
+      <button className="edit-btn" onClick={onEdit}>
         <Pencil size={18} />
         Edit
       </button>

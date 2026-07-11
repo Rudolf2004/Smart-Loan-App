@@ -9,9 +9,17 @@ const initialState = {
   years_employed: "",
   loan_amount: "",
   loan_purpose: "business",
+  loan_type: "term_loan",
+  repayment_period: "24",
+  disbursement_date: "",
+  loan_notes: "",
   existing_debt: "",
   collateral: "yes",
   collateral_value: "",
+  collateral_ownership: "sole_ownership",
+  collateral_document: "",
+  collateral_encumbrance: "no",
+  collateral_notes: "",
   has_guarantor: "yes",
   guarantor_count: "1",
   guarantor1_income: "",
@@ -33,6 +41,9 @@ export function LoanApplicationProvider({ children }) {
       const next = { ...current, [field]: value };
       if (field === "collateral") {
         next.collateral_value = value === "no" ? "0" : current.collateral_value;
+        next.collateral_ownership = value === "no" ? "not_applicable" : current.collateral_ownership;
+        next.collateral_document = value === "no" ? "" : current.collateral_document;
+        next.collateral_encumbrance = value === "no" ? "no" : current.collateral_encumbrance;
       }
       if (field === "has_guarantor") {
         if (value === "no") {
@@ -46,6 +57,11 @@ export function LoanApplicationProvider({ children }) {
         } else {
           next.guarantor_count = current.guarantor_count || "1";
         }
+      }
+      if (field === "guarantor_count" && value === "1") {
+        next.guarantor2_income = "";
+        next.guarantor2_employment = "not_applicable";
+        next.guarantor2_valid_id = "no";
       }
       return next;
     });

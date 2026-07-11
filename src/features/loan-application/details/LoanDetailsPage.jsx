@@ -1,14 +1,9 @@
 import {
   ArrowLeft,
   ShieldCheck,
-  Tag,
-  Layers,
-  CalendarDays,
-  MessageSquareText,
   Info,
   LogOut,
   ArrowRight,
-  ChevronDown,
 } from "lucide-react";
 import "./loanDetail.css";
 import { useNavigate } from "react-router";
@@ -27,7 +22,17 @@ const steps = [
 export default function LoanDetailPage() {
   const navigate = useNavigate();
   const { application, updateField } = useLoanApplication();
+
   const goNext = () => {
+    if (
+      !application.loan_amount ||
+      !application.loan_purpose ||
+      !application.loan_type ||
+      !application.repayment_period
+    ) {
+      return;
+    }
+
     navigate("/loan/collateral-info");
   };
 
@@ -64,22 +69,34 @@ export default function LoanDetailPage() {
           <div>
             <p className="step-count">Step 4 of 7</p>
             <h2>Loan Details</h2>
-            <p className="title-desc">
-              Tell us how much you need and <br />
-              for what purpose.
-            </p>
+            <p className="title-desc">Tell us how much you need and how you plan to use it.</p>
           </div>
 
-          <div className="loan-detail-art">💵</div>
+          <div className="loan-detail-art">$</div>
         </section>
 
         <section className="loan-detail-form-card">
           <FormGroup label="Loan Amount (GHS)" required>
-            <input className="input-box" type="number" value={application.loan_amount} onChange={(event) => updateField("loan_amount", event.target.value)} />
+            <input
+              className="input-box"
+              type="number"
+              min="1000"
+              max="100000"
+              placeholder="e.g. 25000"
+              value={application.loan_amount}
+              onChange={(event) => updateField("loan_amount", event.target.value)}
+            />
           </FormGroup>
 
           <div className="loan-range">
-            <input type="range" min="1000" max="100000" value="25000" readOnly />
+            <input
+              type="range"
+              min="1000"
+              max="100000"
+              step="500"
+              value={application.loan_amount || "25000"}
+              onChange={(event) => updateField("loan_amount", event.target.value)}
+            />
             <div className="range-values">
               <span>1,000</span>
               <span>100,000</span>
@@ -88,30 +105,67 @@ export default function LoanDetailPage() {
 
           <div className="form-grid">
             <FormGroup label="Loan Purpose" required>
-              <Input icon={<Tag />} value="Business Expansion" dropdown />
+              <select
+                className="input-box"
+                value={application.loan_purpose}
+                onChange={(event) => updateField("loan_purpose", event.target.value)}
+              >
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+                <option value="personal">Personal</option>
+                <option value="home">Home</option>
+                <option value="car">Vehicle</option>
+              </select>
             </FormGroup>
 
             <FormGroup label="Loan Type" required>
-              <Input icon={<Layers />} value="Term Loan" dropdown />
+              <select
+                className="input-box"
+                value={application.loan_type}
+                onChange={(event) => updateField("loan_type", event.target.value)}
+              >
+                <option value="term_loan">Term Loan</option>
+                <option value="working_capital">Working Capital</option>
+                <option value="salary_advance">Salary Advance</option>
+                <option value="asset_finance">Asset Finance</option>
+              </select>
             </FormGroup>
           </div>
 
           <div className="form-grid">
             <FormGroup label="Repayment Period" required>
-              <Input icon={<CalendarDays />} value="24 Months" dropdown />
+              <select
+                className="input-box"
+                value={application.repayment_period}
+                onChange={(event) => updateField("repayment_period", event.target.value)}
+              >
+                <option value="6">6 Months</option>
+                <option value="12">12 Months</option>
+                <option value="18">18 Months</option>
+                <option value="24">24 Months</option>
+                <option value="36">36 Months</option>
+              </select>
             </FormGroup>
 
-            <FormGroup label="Preferred Disbursement Date" required>
-              <Input icon={<CalendarDays />} value="June 10, 2024" dropdown />
+            <FormGroup label="Preferred Disbursement Date">
+              <input
+                className="input-box"
+                type="date"
+                value={application.disbursement_date}
+                onChange={(event) => updateField("disbursement_date", event.target.value)}
+              />
             </FormGroup>
           </div>
 
-          <FormGroup label="How will this loan help you?" required>
-            <Input
-              icon={<MessageSquareText />}
-              value="The loan will help me expand my business operations and increase inventory."
+          <FormGroup label="How will this loan help you?">
+            <textarea
+              className="input-box tall"
+              maxLength={250}
+              placeholder="Briefly explain how you plan to use the loan."
+              value={application.loan_notes}
+              onChange={(event) => updateField("loan_notes", event.target.value)}
             />
-            <p className="character-count">0/250 characters</p>
+            <p className="character-count">{application.loan_notes.length}/250 characters</p>
           </FormGroup>
 
           <div className="info-box">
@@ -119,8 +173,8 @@ export default function LoanDetailPage() {
             <div>
               <h3>Important Information</h3>
               <p>
-                The loan details you provide will help us recommend the best
-                loan products tailored to your needs.
+                These details help us match the application with the right loan product
+                and repayment plan.
               </p>
             </div>
           </div>
@@ -149,16 +203,6 @@ function FormGroup({ label, required, children }) {
         {label} {required && <span>*</span>}
       </label>
       {children}
-    </div>
-  );
-}
-
-function Input({ icon, value, dropdown }) {
-  return (
-    <div className="input-box">
-      <div className="input-icon">{icon}</div>
-      <div className="input-value">{value}</div>
-      {dropdown && <ChevronDown className="dropdown-icon" size={24} />}
     </div>
   );
 }
