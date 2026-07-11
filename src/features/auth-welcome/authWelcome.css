@@ -1,0 +1,356 @@
+.auth-page {
+  height: 100vh;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 18px 18px 12px;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(37, 99, 235, 0.12), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #eef6ff 52%, #ffffff 100%);
+  color: #071126;
+}
+
+.auth-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(37, 99, 235, 0.12), transparent 45%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 36px,
+      rgba(37, 99, 235, 0.045) 37px 39px
+    );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.auth-logo {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.logo-circle {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 5px;
+  border-radius: 50%;
+  border: 5px solid #0b4fc3;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 14px 25px rgba(6, 76, 181, 0.18);
+}
+
+.bank-icon {
+  width: 36px;
+  height: 28px;
+  display: block;
+  background: linear-gradient(180deg, #123b84, #0b57cc);
+  clip-path: polygon(50% 0, 100% 28%, 100% 40%, 0 40%, 0 28%);
+}
+
+.auth-logo h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #0a2b68;
+}
+
+.auth-logo p {
+  margin: 2px 0 0;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #0f64d9;
+}
+
+.auth-hero {
+  position: relative;
+  z-index: 2;
+  margin-top: 34px;
+}
+
+.auth-hero h2 {
+  max-width: 260px;
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+}
+
+.auth-hero h2 span {
+  color: #0b4fc3;
+}
+
+.auth-hero p {
+  max-width: 240px;
+  margin: 12px 0 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #44536f;
+}
+
+.loan-illustration {
+  position: relative;
+  z-index: 2;
+  height: 245px;
+  margin-top: 0;
+}
+
+.bank-card {
+  position: absolute;
+  left: 14px;
+  bottom: 42px;
+  width: 120px;
+  height: 88px;
+  background: linear-gradient(145deg, #2e7ce7, #06358d);
+  border-radius: 8px;
+  box-shadow: 0 22px 35px rgba(15, 80, 180, 0.28);
+}
+
+.roof {
+  position: absolute;
+  top: -32px;
+  left: 4px;
+  width: 112px;
+  height: 44px;
+  background: linear-gradient(145deg, #4d98f3, #0c3b95);
+  clip-path: polygon(50% 0, 100% 70%, 100% 100%, 0 100%, 0 70%);
+}
+
+.pillars {
+  display: flex;
+  gap: 8px;
+  padding: 22px 12px 0;
+}
+
+.pillars span {
+  width: 15px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #d8e9ff, #1f5abb);
+}
+
+.phone-card {
+  position: absolute;
+  right: 8px;
+  bottom: 15px;
+  width: 145px;
+  height: 220px;
+  padding: 20px 12px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff, #eef5ff);
+  border: 5px solid #0d48aa;
+  transform: rotate(-3deg);
+  box-shadow: 0 24px 45px rgba(12, 67, 165, 0.28);
+}
+
+.phone-top {
+  width: 38px;
+  height: 5px;
+  margin: -10px auto 12px;
+  border-radius: 99px;
+  background: #3068c8;
+}
+
+.approved-box {
+  height: 52px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0c58d6, #0039a6);
+  color: white;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.approved-box svg {
+  width: 19px;
+  height: 19px;
+  color: #38c995;
+  fill: white;
+}
+
+.amount-box {
+  margin-top: 9px;
+  text-align: center;
+}
+
+.amount-box small {
+  font-size: 8px;
+  color: #344461;
+}
+
+.amount-box h3 {
+  margin: 3px 0 0;
+  color: #0a43a8;
+  font-size: 13px;
+}
+
+.phone-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: grid;
+  gap: 6px;
+  font-size: 9px;
+  color: #17315f;
+  font-weight: 700;
+}
+
+.phone-card li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.phone-card li svg {
+  width: 11px;
+  height: 11px;
+  color: #28be86;
+  fill: #28be86;
+}
+
+.shield {
+  position: absolute;
+  right: 0;
+  bottom: 25px;
+  width: 65px;
+  height: 78px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(145deg, #2f88f0, #003b9b);
+  clip-path: polygon(50% 0, 100% 18%, 90% 82%, 50% 100%, 10% 82%, 0 18%);
+  box-shadow: 0 18px 30px rgba(7, 66, 164, 0.28);
+}
+
+.coin {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffd75b, #f4a516);
+  color: #c77800;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  border: 3px solid #ffd977;
+  box-shadow: 0 10px 18px rgba(218, 145, 0, 0.25);
+}
+
+.coin-one {
+  width: 38px;
+  height: 38px;
+  left: 10px;
+  bottom: 35px;
+  font-size: 11px;
+}
+
+.coin-two {
+  width: 34px;
+  height: 34px;
+  left: 120px;
+  bottom: 78px;
+  font-size: 10px;
+}
+
+.auth-panel {
+  position: relative;
+  z-index: 3;
+  margin-top: -8px;
+  padding: 16px 14px 14px;
+  border-radius: 18px 18px 0 0;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 -12px 35px rgba(24, 75, 160, 0.11);
+  backdrop-filter: blur(14px);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 16px;
+}
+
+.feature {
+  text-align: center;
+  padding: 0 6px;
+  border-right: 1px solid #dbe7fb;
+}
+
+.feature:last-child {
+  border-right: none;
+}
+
+.feature-icon {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 6px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f2f7ff;
+  color: #0648b6;
+}
+
+.feature-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.feature strong {
+  display: block;
+  color: #073b93;
+  font-size: 11px;
+}
+
+.feature span {
+  display: block;
+  margin-top: 1px;
+  color: #4c5b78;
+  font-size: 9px;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  height: 44px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.primary-btn {
+  border: none;
+  background: linear-gradient(135deg, #0056d8, #0037a7);
+  color: white;
+  box-shadow: 0 16px 28px rgba(0, 67, 180, 0.28);
+}
+
+.secondary-btn {
+  margin-top: 10px;
+  background: white;
+  color: #0648b6;
+  border: 2px solid #0648b6;
+}
+
+.primary-btn span,
+.secondary-btn span {
+  line-height: 1;
+}
+
+.primary-btn svg,
+.secondary-btn svg {
+  flex-shrink: 0;
+}

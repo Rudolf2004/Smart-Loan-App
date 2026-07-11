@@ -1,0 +1,48 @@
+{
+  "name": "Smart Loan",
+  "short_name": "Smart Loan",
+  "description": "Loan approval assessment app powered by machine learning.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f9fd",
+  "theme_color": "#0757df",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Apply for a Loan",
+      "short_name": "Apply",
+      "description": "Start a new loan application",
+      "url": "/loan/personal-info",
+      "icons": [
+        {
+          "src": "/pwa-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Open the Smart Loan dashboard",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/pwa-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

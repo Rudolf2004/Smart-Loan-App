@@ -1,0 +1,48 @@
+.processing-page{min-height:100vh;background:#f4f8ff;display:flex;align-items:center;justify-content:center;padding:36px}
+.processing-card{background:#fff;border-radius:18px;padding:12px 18px 18px;max-width:390px;width:100%;box-shadow:0 12px 36px rgba(8,45,105,0.06);margin:10px auto}
+.processing-header{display:flex;flex-direction:column;align-items:center;gap:8px}
+.processing-icon{width:56px;height:56px;border-radius:16px;background:#f1f7ff;display:flex;align-items:center;justify-content:center;color:#0757df}
+.processing-card h1{margin:0;color:#071746;text-align:center;font-size:15px}
+.processing-sub{color:#51607a;margin-top:2px;text-align:center;font-size:13px}
+.processing-body{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:18px}
+.processing-left{display:flex;align-items:center;justify-content:center}
+.progress-ring{display:flex;flex-direction:column;align-items:center}
+.circular-chart{width:140px;height:140px}
+.circular-chart{width:170px;height:170px;transform:translateY(-6px)}
+.circular-chart .circle-bg{fill:none;stroke:#eef5ff;stroke-width:6}
+.circular-chart .circle{fill:none;stroke:url(#ringGrad);stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
+.circular-chart .circle-inner{fill:#fff}
+.circular-chart .percentage{fill:#071746;text-anchor:middle;font-weight:800}
+.circular-chart .percent-num{font-size:28px;font-weight:900}
+.circular-chart .percent-sign{font-size:12px;fill:#6b7280;margin-left:4px}
+
+.progress-caption{margin-top:8px;color:#31436d;font-size:13px}
+.processing-timer{margin-top:6px;color:#6b7280;font-size:12px}
+.progress-caption{margin-top:8px;color:#31436d;font-size:13px}
+.processing-timer{margin-top:6px;color:#6b7280;font-size:12px}
+.processing-steps{list-style:none;padding:0;margin:0 0 12px 0;width:100%}
+.processing-steps li{display:flex;gap:12px;align-items:center;padding:10px 6px;border-bottom:1px solid #f1f6ff}
+.step-dot-wrap{width:34px;display:flex;align-items:center;justify-content:center}
+.step-circle-active{width:10px;height:10px;border-radius:999px;background:#0757df;box-shadow:0 2px 6px rgba(7,87,223,0.12)}
+.step-circle-pending{width:10px;height:10px;border-radius:999px;background:#e6eefc}
+.processing-steps li .step-dot-svg{width:22px;height:22px}
+.processing-steps li.done .step-dot-svg svg{display:block}
+.processing-steps li.done .step-dot-svg{background:#ecfff3;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:4px}
+.processing-steps li.in-progress .step-dot-svg{background:#eef5ff;border-radius:8px;padding:6px}
+.processing-steps li.done .step-dot{background:#0c8f45}
+.processing-steps li.in-progress .step-dot{background:#f59e0b}
+.processing-steps li.pending .step-dot{background:#94a3b8}
+.processing-steps strong{display:block;color:#071746;font-size:14px}
+.step-sub{margin:0;color:#6b7280;font-size:12px}
+.note{color:#475569;font-size:13px;margin-top:12px;text-align:center}
+.processing-error{margin-top:12px}
+.primary-outline{background:#fff;border:1px solid #dbeafe;padding:8px 12px;border-radius:10px;color:#0757df}
+
+/* small-screen tweaks to push ring upper and steps below */
+@media (max-width: 480px){
+	.processing-card{padding:20px 16px}
+	.circular-chart{width:140px;height:140px}
+	.circular-chart .percentage{font-size:18px}
+	.processing-body{margin-top:12px}
+	.processing-steps li{padding:10px 4px}
+}

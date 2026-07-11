@@ -1,0 +1,36 @@
+.result-page{min-height:100vh;background:#f4f8ff;display:flex;align-items:center;justify-content:center;padding:24px 18px}
+.result-card{background:#fff;border-radius:18px;padding:24px;max-width:880px;width:100%;box-shadow:0 10px 30px rgba(8,45,105,0.06)}
+.result-card h1{margin:0;color:#071746}
+.result-sub{color:#59658d;margin-top:6px}
+.result-top{display:flex;gap:20px;align-items:center;margin-top:18px}
+.result-badge{flex:0 0 220px;border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.big-check{font-size:54px;font-weight:800}
+.big-x{font-size:54px;font-weight:800}
+.badge-text{margin-top:10px;font-weight:800}
+.risk-box{flex:1;display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:#f1f6ff}
+.risk-score{font-size:34px;color:#0757df;font-weight:800}
+.risk-meta{color:#475569}
+.risk-level{margin-top:4px;background:#e7f5ff;padding:6px 10px;border-radius:999px;color:#0757df;display:inline-block}
+.assessment-list{margin-top:18px}
+.assessment-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f6ff}
+.assessment-label{color:#071746}
+.assessment-status{font-weight:700}
+.assessment-status.passed{color:#0c8f45}
+.assessment-status.failed{color:#c93a3a}
+.assessment-status.insufficient{color:#b36b00}
+.recommendation{margin-top:18px;background:#fcfcff;padding:14px;border-radius:12px}
+.result-actions{display:flex;gap:12px;margin-top:18px}
+.btn-primary{background:#0757df;color:#fff;padding:12px 18px;border-radius:10px;border:none;font-weight:800}
+.btn-outline{background:#fff;border:1px solid #dbeafe;padding:12px 18px;border-radius:10px;color:#0757df;font-weight:800}
+
+@media (max-width: 640px){
+  .result-page{align-items:flex-start}
+  .result-card{padding:20px}
+  .result-top{flex-direction:column;align-items:stretch}
+  .result-badge{flex:auto}
+  .risk-box{align-items:flex-start}
+  .assessment-row{gap:12px}
+  .assessment-status{text-align:right}
+  .result-actions{flex-direction:column}
+  .result-actions button{width:100%}
+}

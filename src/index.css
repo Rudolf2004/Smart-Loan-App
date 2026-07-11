@@ -1,0 +1,199 @@
+@import "@fontsource/poppins";
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #e8eef7;
+  color: #071746;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(16, 185, 129, 0.35);
+  outline-offset: 2px;
+}
+
+.mobile-shell-wrap {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(22, 175, 99, 0.16), transparent 28%),
+    linear-gradient(145deg, #e8eef7 0%, #f7fafc 42%, #dbeafe 100%);
+}
+
+.mobile-shell {
+  background: linear-gradient(180deg, #fbfdff 0%, #f6f9fd 100%);
+  box-shadow: 0 24px 80px rgba(8, 45, 105, 0.22);
+}
+
+.personal-page,
+.employment-page,
+.financial-page,
+.loan-detail-page,
+.collatrial-page,
+.guarantor-page,
+.review-page,
+.dashboard-page,
+.applications-page,
+.loans-page,
+.notifications-page,
+.settings-page,
+.processing-page {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(246, 249, 253, 0.96)),
+    #f6f9fd !important;
+}
+
+.personal-form-card,
+.employment-form-card,
+.financial-form-card,
+.loan-detail-form-card,
+.collatrial-form-card,
+.guarantor-form-card,
+.review-card,
+.additional-guarantor-card,
+.activity-card,
+.summary-card,
+.app-item,
+.notif-item,
+.processing-card,
+.result-card {
+  border: 1px solid rgba(201, 214, 235, 0.88) !important;
+  box-shadow: 0 16px 38px rgba(8, 45, 105, 0.1) !important;
+}
+
+.input-box,
+input.input-box,
+select.input-box,
+textarea.input-box {
+  border: 1px solid #c9d6eb !important;
+  background: #ffffff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.input-box:focus,
+input.input-box:focus,
+select.input-box:focus,
+textarea.input-box:focus {
+  border-color: #0f766e !important;
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.13);
+  outline: none;
+}
+
+.back-btn,
+.icon-btn {
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.back-btn:hover,
+.icon-btn:hover {
+  background: rgba(7, 87, 223, 0.08);
+  transform: translateY(-1px);
+}
+
+.save-btn,
+.next-btn,
+.submit-btn,
+.primary-btn,
+.primary-outline,
+.btn-primary,
+.btn-outline,
+.btn-refresh,
+.contact-btn,
+.apply-card button {
+  border-radius: 14px !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.next-btn,
+.submit-btn,
+.primary-btn,
+.btn-primary {
+  background: linear-gradient(135deg, #0757df, #0f766e) !important;
+  box-shadow: 0 14px 26px rgba(7, 87, 223, 0.22) !important;
+}
+
+.save-btn:hover,
+.next-btn:hover,
+.submit-btn:hover,
+.primary-btn:hover,
+.primary-outline:hover,
+.btn-primary:hover,
+.btn-outline:hover,
+.btn-refresh:hover,
+.contact-btn:hover,
+.apply-card button:hover {
+  transform: translateY(-1px);
+}
+
+.steps-line {
+  border-radius: 999px;
+}
+
+.step-circle.active {
+  background: linear-gradient(135deg, #0757df, #0f766e) !important;
+}
+
+.info-box {
+  border: 1px solid rgba(99, 179, 237, 0.28);
+}
+
+.bottom-navigation,
+nav.absolute.bottom-0 {
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.94) !important;
+}
+
+.review-card h3,
+.additional-guarantor-card h3,
+.app-title,
+.notif-title,
+.quick-card span,
+.summary-label {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 430px) {
+  .mobile-shell {
+    box-shadow: none;
+  }
+}
+
+@media (min-width: 760px) {
+  .mobile-shell {
+    margin: 22px 0;
+    min-height: calc(100vh - 44px);
+    border-radius: 30px;
+  }
+}
