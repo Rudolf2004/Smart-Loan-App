@@ -5,6 +5,7 @@ import {
   Phone,
   IdCard,
   Lock,
+  Eye,
   EyeOff,
   ShieldCheck,
   CheckCircle,
@@ -79,8 +80,9 @@ export default function RegisterForm() {
           type="button"
           className="eye-btn"
           onClick={() => setShowPassword(!showPassword)}
+          aria-label={showPassword ? "Hide password" : "Show password"}
         >
-          <EyeOff size={22} />
+          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
         </button>
       </label>
 
@@ -101,15 +103,16 @@ export default function RegisterForm() {
           type="button"
           className="eye-btn"
           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          aria-label={showConfirmPassword ? "Hide password" : "Show password"}
         >
-          <EyeOff size={22} />
+          {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
         </button>
       </label>
 
       <div className="password-box">
         <h3>
           <ShieldCheck size={18} />
-          Password must contain:
+          Password requirements
         </h3>
 
         <div className="password-list">

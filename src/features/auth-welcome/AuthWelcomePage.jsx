@@ -11,7 +11,7 @@ export default function AuthWelcomePage() {
       <main className="auth-page">
         <section className="auth-logo">
           <div className="logo-circle">
-            <span className="bank-icon">▰</span>
+            <span className="bank-icon" />
           </div>
 
           <h1>SMART LOAN</h1>
@@ -23,9 +23,7 @@ export default function AuthWelcomePage() {
             Get the financial <span>support</span> you deserve
           </h2>
 
-          <p>
-            Apply for a loan in minutes and get a decision instantly.
-          </p>
+          <p>Apply for a loan in minutes and get a decision instantly.</p>
         </section>
 
         <section className="loan-illustration">
@@ -44,12 +42,12 @@ export default function AuthWelcomePage() {
 
             <div className="approved-box">
               <CheckCircle size={28} />
-              <strong>Loan Approved!</strong>
+              <strong>Loan Approved</strong>
             </div>
 
             <div className="amount-box">
               <small>Approved Amount</small>
-              <h3>GHS 25,000.00</h3>
+              <h3>GHS 25,000</h3>
             </div>
 
             <ul>
@@ -74,7 +72,7 @@ export default function AuthWelcomePage() {
 
           <button className="primary-btn" onClick={() => navigate("/login")}>
             Login to Account
-            <ArrowRight size={28} />
+            <ArrowRight size={22} />
           </button>
 
           <button
@@ -83,11 +81,11 @@ export default function AuthWelcomePage() {
             onClick={() => navigate("/register")}
           >
             <span>Create New Account</span>
-            <ArrowRight size={20} strokeWidth={2.5} />
+            <ArrowRight size={18} strokeWidth={2.5} />
           </button>
 
           <p className="security-text">
-            <ShieldCheck size={18} />
+            <ShieldCheck size={16} />
             Your data is encrypted and secure
           </p>
         </section>

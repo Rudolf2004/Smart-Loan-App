@@ -1,23 +1,24 @@
 .register-page {
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
   overflow-y: auto;
   background:
-    radial-gradient(circle at 85% 6%, rgba(58, 131, 245, 0.24), transparent 24%),
-    radial-gradient(circle at 68% 18%, rgba(54, 115, 225, 0.14), transparent 19%),
-    linear-gradient(180deg, #eef6ff 0%, #f8fbff 36%, #ffffff 100%);
+    radial-gradient(circle at 86% 8%, rgba(58, 131, 245, 0.22), transparent 22%),
+    linear-gradient(180deg, #eef6ff 0%, #f8fbff 32%, #ffffff 100%);
   color: #071126;
 }
 
 .register-back {
   position: absolute;
-  top: 34px;
-  left: 22px;
+  top: 18px;
+  left: 16px;
   z-index: 6;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border: none;
-  background: transparent;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
   color: #062b71;
   display: grid;
   place-items: center;
@@ -25,231 +26,196 @@
 }
 
 .register-hero {
-  height: 250px;
+  height: 178px;
   position: relative;
-  padding: 70px 24px 0;
+  padding: 46px 18px 0;
 }
 
 .register-logo {
-  width: 185px;
+  width: 168px;
   text-align: center;
   position: relative;
   z-index: 2;
 }
 
 .register-logo-circle {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 8px;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 6px;
   border-radius: 50%;
-  border: 5px solid #0b57d0;
+  border: 4px solid #0b57d0;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 12px 22px rgba(6, 74, 185, 0.18);
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 10px 18px rgba(6, 74, 185, 0.16);
 }
 
 .register-bank-roof {
-  width: 46px;
-  height: 24px;
-  border: 6px solid #174a9f;
+  width: 34px;
+  height: 18px;
+  border: 4px solid #174a9f;
   border-bottom: none;
   clip-path: polygon(50% 0, 100% 75%, 92% 100%, 50% 34%, 8% 100%, 0 75%);
 }
 
 .register-bank-body {
-  width: 48px;
-  height: 26px;
+  width: 36px;
+  height: 20px;
   display: flex;
   justify-content: center;
-  gap: 5px;
-  border-bottom: 5px solid #174a9f;
+  gap: 4px;
+  border-bottom: 4px solid #174a9f;
 }
 
 .register-bank-body span {
-  width: 7px;
-  height: 24px;
+  width: 5px;
+  height: 18px;
   background: #174a9f;
   border-radius: 5px 5px 0 0;
 }
 
 .register-logo h1 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 900;
-  letter-spacing: 2px;
   color: #08245b;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
 }
 
 .register-logo p {
-  margin: 3px 0 0;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 2px;
+  margin: 2px 0 0;
   color: #1e70e9;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
 }
 
 .register-art {
   position: absolute;
-  right: 24px;
-  top: 52px;
-  width: 175px;
-  height: 175px;
+  right: 16px;
+  top: 35px;
+  width: 128px;
+  height: 128px;
 }
 
 .clipboard {
   position: absolute;
-  right: 26px;
-  top: 18px;
-  width: 96px;
-  height: 140px;
+  right: 20px;
+  top: 14px;
+  width: 70px;
+  height: 100px;
   border-radius: 10px;
   background: linear-gradient(145deg, #2b83f6, #0642b9);
-  box-shadow: 0 20px 28px rgba(15, 80, 180, 0.28);
+  box-shadow: 0 16px 24px rgba(15, 80, 180, 0.22);
 }
 
 .clip-top {
   position: absolute;
-  top: -14px;
-  left: 31px;
-  width: 45px;
-  height: 24px;
-  border-radius: 12px 12px 5px 5px;
+  top: -11px;
+  left: 22px;
+  width: 34px;
+  height: 19px;
+  border-radius: 10px 10px 5px 5px;
   background: linear-gradient(180deg, #0c46b4, #5ea0ff);
 }
 
 .paper {
   position: absolute;
-  top: 20px;
-  left: 18px;
-  width: 62px;
-  height: 100px;
+  top: 16px;
+  left: 13px;
+  width: 45px;
+  height: 72px;
   border-radius: 4px;
   background: #f8fbff;
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 14px;
 }
 
 .paper-fold {
   position: absolute;
   top: 0;
   right: 0;
-  border-top: 14px solid #dbeaff;
-  border-left: 14px solid transparent;
+  border-top: 11px solid #dbeaff;
+  border-left: 11px solid transparent;
 }
 
 .paper-avatar {
-  width: 28px;
-  height: 28px;
-  margin: 0 auto 10px;
+  width: 22px;
+  height: 22px;
+  margin: 0 auto 7px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 38%, #0c54cd 0 6px, transparent 7px),
-    radial-gradient(circle at 50% 83%, #0c54cd 0 13px, transparent 14px),
+    radial-gradient(circle at 50% 38%, #0c54cd 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 83%, #0c54cd 0 10px, transparent 11px),
     #e7f0ff;
 }
 
 .paper span {
   display: block;
-  width: 38px;
-  height: 4px;
+  width: 28px;
+  height: 3px;
   border-radius: 99px;
   background: #7ca4ea;
-  margin: 7px auto;
+  margin: 5px auto;
 }
 
 .art-shield {
   position: absolute;
-  left: 15px;
-  top: 72px;
-  width: 72px;
-  height: 84px;
+  left: 12px;
+  top: 52px;
+  width: 50px;
+  height: 58px;
   display: grid;
   place-items: center;
-  color: white;
-  font-size: 44px;
+  color: #fff;
+  font-size: 30px;
   font-weight: 900;
   background: linear-gradient(145deg, #2f88f0, #003b9b);
   clip-path: polygon(50% 0, 100% 18%, 90% 82%, 50% 100%, 10% 82%, 0 18%);
-  box-shadow: 0 18px 30px rgba(7, 66, 164, 0.28);
+  box-shadow: 0 14px 24px rgba(7, 66, 164, 0.24);
   z-index: 3;
 }
 
 .art-pen {
   position: absolute;
   right: 3px;
-  top: 72px;
-  width: 18px;
-  height: 105px;
+  top: 52px;
+  width: 14px;
+  height: 76px;
   border-radius: 14px;
   background: linear-gradient(180deg, #0741af, #4b9bff 70%, #ffffff 70% 78%, #0c54cd 78%);
   transform: rotate(35deg);
-  box-shadow: 0 12px 20px rgba(7, 66, 164, 0.25);
+  box-shadow: 0 10px 18px rgba(7, 66, 164, 0.22);
   z-index: 4;
 }
 
 .art-pen::after {
   content: "";
   position: absolute;
-  bottom: -13px;
+  bottom: -10px;
   left: 3px;
-  border-top: 16px solid #0648b6;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-}
-
-.art-leaf {
-  position: absolute;
-  right: -7px;
-  bottom: 7px;
-  width: 45px;
-  height: 50px;
-}
-
-.art-leaf span {
-  position: absolute;
-  width: 17px;
-  height: 26px;
-  border-radius: 20px 20px 20px 0;
-  background: #31a86a;
-}
-
-.art-leaf span:nth-child(1) {
-  left: 8px;
-  bottom: 5px;
-  transform: rotate(-35deg);
-}
-
-.art-leaf span:nth-child(2) {
-  left: 18px;
-  bottom: 20px;
-  transform: rotate(18deg);
-}
-
-.art-leaf span:nth-child(3) {
-  left: 28px;
-  bottom: 8px;
-  transform: rotate(45deg);
+  border-top: 13px solid #0648b6;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
 }
 
 .register-panel {
   position: relative;
   z-index: 5;
-  margin-top: -18px;
-  min-height: calc(100vh - 232px);
-  padding: 34px 26px 24px;
-  border-radius: 32px 32px 0 0;
-  background: #ffffff;
-  box-shadow: 0 -14px 35px rgba(24, 75, 160, 0.1);
+  margin-top: -10px;
+  min-height: calc(100vh - 168px);
+  padding: 22px 18px 22px;
+  border-radius: 24px 24px 0 0;
+  background: #fff;
+  box-shadow: 0 -12px 32px rgba(24, 75, 160, 0.1);
 }
 
 .register-title h2 {
   margin: 0;
-  font-size: 28px;
+  color: #05070d;
+  font-size: 24px;
   line-height: 1;
   font-weight: 900;
-  letter-spacing: -0.5px;
-  color: #05070d;
 }
 
 .register-title h2 span {
@@ -257,32 +223,31 @@
 }
 
 .register-title p {
-  margin: 14px 0 24px;
+  margin: 8px 0 16px;
   color: #4e5d7c;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 13px;
 }
 
 .register-form {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .register-input {
-  height: 64px;
+  min-height: 56px;
   border: 1.5px solid #dde7f7;
   border-radius: 12px;
-  background: #ffffff;
+  background: #fff;
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 0 14px;
+  gap: 10px;
+  padding: 8px 12px;
   box-shadow: 0 8px 18px rgba(18, 77, 163, 0.035);
 }
 
-.input-icon {
-  width: 43px;
-  height: 43px;
+.register-input .input-icon {
+  width: 38px;
+  height: 38px;
   flex-shrink: 0;
   border-radius: 11px;
   background: #f1f6ff;
@@ -291,16 +256,18 @@
   place-items: center;
 }
 
-.register-input div:nth-child(2) {
+.register-input > div:nth-child(2) {
+  min-width: 0;
   flex: 1;
 }
 
 .register-input strong {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   color: #33476f;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
+  line-height: 1.2;
 }
 
 .register-input input {
@@ -309,23 +276,24 @@
   outline: none;
   background: transparent;
   color: #17233e;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .register-input input::placeholder {
-  color: #617298;
+  color: #7a89a8;
 }
 
 .password-input {
-  padding-right: 10px;
+  padding-right: 8px;
 }
 
 .eye-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
   border: none;
-  background: transparent;
+  border-radius: 10px;
+  background: #f8fbff;
   color: #4c5268;
   display: grid;
   place-items: center;
@@ -333,65 +301,64 @@
 }
 
 .password-box {
-  margin-top: 4px;
-  padding: 16px 18px;
+  margin-top: 2px;
+  padding: 12px;
   border-radius: 12px;
   background: linear-gradient(135deg, #eef6ff, #f7fbff);
 }
 
 .password-box h3 {
-  margin: 0 0 13px;
+  margin: 0 0 8px;
   color: #072d7b;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 900;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .password-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 11px 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 10px;
 }
 
 .password-list span {
+  min-width: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   color: #243658;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
 }
 
 .password-list svg {
+  flex-shrink: 0;
   color: #24af6c;
-  fill: #24af6c;
 }
 
 .create-account-btn {
   width: 100%;
-  height: 58px;
-  margin-top: 8px;
+  min-height: 50px;
+  margin-top: 4px;
   border: none;
   border-radius: 13px;
   background: linear-gradient(135deg, #0056d8, #0037a7);
-  color: #ffffff;
-  font-size: 18px;
+  color: #fff;
+  font-size: 15px;
   font-weight: 900;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 14px 28px rgba(0, 67, 180, 0.25);
+  box-shadow: 0 14px 24px rgba(0, 67, 180, 0.22);
 }
 
 .register-login {
-  margin-top: 20px;
+  margin-top: 14px;
   text-align: center;
   color: #2e3b59;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 13px;
 }
 
 .register-login a {
@@ -401,95 +368,91 @@
 }
 
 .register-secure {
-  margin: 28px 0 0;
+  margin: 16px 0 0;
   color: #6d7da0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  font-size: 13px;
-  font-weight: 500;
+  gap: 8px;
+  font-size: 12px;
 }
 
-@media (max-height: 760px) {
+@media (max-height: 720px) {
   .register-hero {
-    height: 215px;
-    padding-top: 58px;
-  }
-
-  .register-logo-circle {
-    width: 58px;
-    height: 58px;
-  }
-
-  .register-logo h1 {
-    font-size: 20px;
-  }
-
-  .register-logo p {
-    font-size: 8px;
+    height: 132px;
+    padding-top: 34px;
   }
 
   .register-art {
-    transform: scale(0.82);
+    transform: scale(0.74);
     transform-origin: top right;
-    top: 42px;
+    top: 24px;
+  }
+
+  .register-logo-circle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .register-logo h1 {
+    font-size: 16px;
+  }
+
+  .register-logo p {
+    font-size: 6px;
   }
 
   .register-panel {
-    margin-top: -20px;
-    padding-top: 26px;
+    min-height: calc(100vh - 124px);
+    padding-top: 18px;
   }
 
   .register-title h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .register-title p {
-    margin: 10px 0 16px;
-    font-size: 13px;
+    margin-bottom: 12px;
   }
 
   .register-form {
-    gap: 10px;
+    gap: 8px;
   }
 
   .register-input {
-    height: 54px;
+    min-height: 50px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
-  .input-icon {
-    width: 37px;
-    height: 37px;
-  }
-
-  .register-input strong {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-
-  .register-input input {
-    font-size: 13px;
+  .register-input .input-icon {
+    width: 34px;
+    height: 34px;
   }
 
   .password-box {
-    padding: 12px 14px;
+    padding: 10px;
   }
 
   .password-list span {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .create-account-btn {
-    height: 50px;
-    font-size: 15px;
+    min-height: 46px;
+  }
+}
+
+@media (max-width: 360px) {
+  .register-art {
+    display: none;
   }
 
-  .register-login {
-    margin-top: 14px;
+  .register-logo {
+    margin: 0 auto;
   }
 
-  .register-secure {
-    margin-top: 16px;
+  .password-list {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

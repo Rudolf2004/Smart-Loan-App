@@ -16,8 +16,9 @@ export default function RegisterPage() {
           type="button"
           className="register-back"
           onClick={() => navigate(-1)}
+          aria-label="Go back"
         >
-          <ArrowLeft size={30} />
+          <ArrowLeft size={26} />
         </button>
 
         <section className="register-hero">
@@ -45,17 +46,11 @@ export default function RegisterPage() {
                 <span />
                 <span />
                 <span />
-                <span />
               </div>
             </div>
 
             <div className="art-shield">✓</div>
             <div className="art-pen" />
-            <div className="art-leaf">
-              <span />
-              <span />
-              <span />
-            </div>
           </div>
         </section>
 
@@ -64,7 +59,7 @@ export default function RegisterPage() {
             <h2>
               Create <span>Account</span>
             </h2>
-            <p>Fill in your details to get started</p>
+            <p>Enter your details to start your loan assessment.</p>
           </div>
 
           <RegisterForm />
@@ -75,7 +70,7 @@ export default function RegisterPage() {
 
           <p className="register-secure">
             <ShieldCheck size={16} />
-            Your data is encrypted and secure with us
+            Your data is encrypted and secure
           </p>
         </section>
       </main>
