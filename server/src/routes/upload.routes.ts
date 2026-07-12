@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { Router } from "express";
 import { z } from "zod";
+import { pool } from "../db/pool.js";
 import { requireAuth } from "../middleware/auth.middleware.js";
 
 const router = Router();
@@ -47,6 +48,16 @@ router.post("/api/uploads", requireAuth, async (req, res) => {
   const storedName = `${Date.now()}-${randomBytes(6).toString("hex")}-${safeFileName(fileName)}`;
   const storedPath = path.join(userUploadDir, storedName);
   await writeFile(storedPath, buffer);
+  const uploadedAt = new Date().toISOString();
+  const documentUrl = `/uploads/${userId}/${storedName}`;
+
+  if (pool) {
+    await pool.query(
+      `INSERT INTO documents (id, user_id, purpose, file_name, mime_type, size, url, uploaded_at)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [storedName, userId, purpose, fileName, mimeType, buffer.length, documentUrl, uploadedAt],
+    );
+  }
 
   res.status(201).json({
     document: {
@@ -55,8 +66,8 @@ router.post("/api/uploads", requireAuth, async (req, res) => {
       fileName,
       mimeType,
       size: buffer.length,
-      url: `/uploads/${userId}/${storedName}`,
-      uploadedAt: new Date().toISOString(),
+      url: documentUrl,
+      uploadedAt,
     },
   });
 });

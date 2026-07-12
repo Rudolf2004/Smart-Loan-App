@@ -2,6 +2,7 @@ import { createHmac, randomBytes, scrypt as scryptCallback, timingSafeEqual } fr
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
+import { pool } from "../db/pool.js";
 
 const scrypt = promisify(scryptCallback);
 const dataDir = path.resolve(process.env.DATA_DIR || path.join(process.cwd(), "data"));
@@ -24,10 +25,36 @@ type StoredUsers = {
   users: AuthUser[];
 };
 
+type UserRow = {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string | null;
+  national_id: string | null;
+  password_hash: string | null;
+  google_sub: string | null;
+  provider: "password" | "google";
+  created_at: Date;
+};
+
 export type PublicUser = Omit<AuthUser, "passwordHash" | "googleSub">;
 
 function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
+}
+
+function fromUserRow(row: UserRow): AuthUser {
+  return {
+    id: row.id,
+    fullName: row.full_name,
+    email: row.email,
+    phone: row.phone || undefined,
+    nationalId: row.national_id || undefined,
+    passwordHash: row.password_hash || undefined,
+    googleSub: row.google_sub || undefined,
+    provider: row.provider,
+    createdAt: row.created_at.toISOString(),
+  };
 }
 
 async function ensureStore() {
@@ -111,6 +138,11 @@ export function verifyToken(token = "") {
 }
 
 export async function findUserById(id: string) {
+  if (pool) {
+    const result = await pool.query<UserRow>("SELECT * FROM users WHERE id = $1", [id]);
+    return result.rows[0] ? fromUserRow(result.rows[0]) : null;
+  }
+
   const store = await readUsers();
   return store.users.find((user) => user.id === id) || null;
 }
@@ -122,6 +154,48 @@ export async function registerUser(input: {
   nationalId: string;
   password: string;
 }) {
+  if (pool) {
+    const email = normalizeEmail(input.email);
+    const phone = input.phone.trim();
+    const user: AuthUser = {
+      id: randomBytes(16).toString("hex"),
+      fullName: input.fullName.trim(),
+      email,
+      phone,
+      nationalId: input.nationalId.trim(),
+      passwordHash: await hashPassword(input.password),
+      provider: "password",
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const result = await pool.query<UserRow>(
+        `INSERT INTO users (
+          id, full_name, email, phone, national_id, password_hash, provider, created_at
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING *`,
+        [
+          user.id,
+          user.fullName,
+          user.email,
+          user.phone,
+          user.nationalId,
+          user.passwordHash,
+          user.provider,
+          user.createdAt,
+        ],
+      );
+
+      return fromUserRow(result.rows[0]);
+    } catch (error) {
+      if (error && typeof error === "object" && "code" in error && error.code === "23505") {
+        throw new Error("An account with this email or phone number already exists.");
+      }
+      throw error;
+    }
+  }
+
   const store = await readUsers();
   const email = normalizeEmail(input.email);
   const phone = input.phone.trim();
@@ -147,6 +221,21 @@ export async function registerUser(input: {
 }
 
 export async function loginUser(identifier: string, password: string) {
+  if (pool) {
+    const normalized = identifier.trim().toLowerCase();
+    const result = await pool.query<UserRow>("SELECT * FROM users WHERE email = $1 OR phone = $2 LIMIT 1", [
+      normalized,
+      identifier.trim(),
+    ]);
+    const user = result.rows[0] ? fromUserRow(result.rows[0]) : null;
+
+    if (!user || !(await verifyPassword(password, user.passwordHash))) {
+      throw new Error("Invalid email/phone number or password.");
+    }
+
+    return user;
+  }
+
   const store = await readUsers();
   const normalized = identifier.trim().toLowerCase();
   const user = store.users.find((entry) => entry.email === normalized || entry.phone === identifier.trim());
@@ -163,6 +252,37 @@ export async function upsertGoogleUser(profile: {
   email: string;
   fullName: string;
 }) {
+  if (pool) {
+    const email = normalizeEmail(profile.email);
+    const existing = await pool.query<UserRow>(
+      "SELECT * FROM users WHERE google_sub = $1 OR email = $2 LIMIT 1",
+      [profile.sub, email],
+    );
+
+    if (existing.rows[0]) {
+      const current = fromUserRow(existing.rows[0]);
+      const result = await pool.query<UserRow>(
+        `UPDATE users
+          SET google_sub = $1,
+              full_name = COALESCE(NULLIF(full_name, ''), $2),
+              provider = CASE WHEN password_hash IS NULL THEN 'google' ELSE provider END
+          WHERE id = $3
+          RETURNING *`,
+        [profile.sub, profile.fullName, current.id],
+      );
+      return fromUserRow(result.rows[0]);
+    }
+
+    const result = await pool.query<UserRow>(
+      `INSERT INTO users (id, full_name, email, google_sub, provider, created_at)
+        VALUES ($1, $2, $3, $4, 'google', $5)
+        RETURNING *`,
+      [randomBytes(16).toString("hex"), profile.fullName, email, profile.sub, new Date().toISOString()],
+    );
+
+    return fromUserRow(result.rows[0]);
+  }
+
   const store = await readUsers();
   const email = normalizeEmail(profile.email);
   let user = store.users.find((entry) => entry.googleSub === profile.sub || entry.email === email);
