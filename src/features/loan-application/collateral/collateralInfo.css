@@ -259,6 +259,10 @@
   font-size: 13px;
 }
 
+.upload-error {
+  color: #b42318;
+}
+
 .info-box {
   background: #f0f6ff;
   border-radius: 18px;

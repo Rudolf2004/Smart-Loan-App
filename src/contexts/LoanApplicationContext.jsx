@@ -18,6 +18,7 @@ const initialState = {
   collateral_value: "",
   collateral_ownership: "sole_ownership",
   collateral_document: "",
+  collateral_document_url: "",
   collateral_encumbrance: "no",
   collateral_notes: "",
   has_guarantor: "yes",
@@ -43,6 +44,7 @@ export function LoanApplicationProvider({ children }) {
         next.collateral_value = value === "no" ? "0" : current.collateral_value;
         next.collateral_ownership = value === "no" ? "not_applicable" : current.collateral_ownership;
         next.collateral_document = value === "no" ? "" : current.collateral_document;
+        next.collateral_document_url = value === "no" ? "" : current.collateral_document_url;
         next.collateral_encumbrance = value === "no" ? "no" : current.collateral_encumbrance;
       }
       if (field === "has_guarantor") {

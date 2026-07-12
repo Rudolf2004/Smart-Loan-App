@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": "29b1440197ca3400c33a83e2bd6f787e",
+      "fullName": "Test User",
+      "email": "test+cdfdb91600784a5bab3a39a2e483ad00@smartloan.local",
+      "phone": "0244971745",
+      "nationalId": "GHA-TEST-001",
+      "passwordHash": "2041fb85dd5393929fbf4a491fe24336:e0a480bacd92c95ef4e114b4f1a12f1f0de9406fab368b107eaa9f98a67b969262cc2bafca2bf07eb9af644fefc9451d0cee71727f52bcd39d45eedd2cc3db6e",
+      "provider": "password",
+      "createdAt": "2026-07-12T01:43:30.007Z"
+    },
+    {
+      "id": "d6fe08d33deaf3887f7d09a8f7643c41",
+      "fullName": "Hello",
+      "email": "rudolfsetorkobby@gmail.com",
+      "phone": "0533299020",
+      "nationalId": "GHA-111222333",
+      "passwordHash": "542098db42f7e09dacc591be038b19f4:eb1e75c68812220cad79444011d4cd48967b165e17c974d48c22233e445f7938c15a0ad3aab9f4e53453e01f3105bfe4adbea5055aa449c111092c3a51ce572e",
+      "provider": "password",
+      "createdAt": "2026-07-12T01:49:21.657Z"
+    }
+  ]
+}

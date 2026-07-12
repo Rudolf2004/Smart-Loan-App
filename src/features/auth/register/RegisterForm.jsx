@@ -11,14 +11,56 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../../contexts/useAuth";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    nationalId: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const updateForm = (field, value) => {
+    setForm((current) => ({ ...current, [field]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+      await register({
+        fullName: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        nationalId: form.nationalId,
+        password: form.password,
+      });
+      navigate("/dashboard");
+    } catch (registerError) {
+      setError(registerError.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <form className="register-form">
+    <form className="register-form" onSubmit={handleSubmit}>
       <label className="register-input">
         <div className="input-icon">
           <User size={22} />
@@ -26,7 +68,13 @@ export default function RegisterForm() {
 
         <div>
           <strong>Full Name</strong>
-          <input type="text" placeholder="Enter your full name" />
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            value={form.fullName}
+            onChange={(event) => updateForm("fullName", event.target.value)}
+            required
+          />
         </div>
       </label>
 
@@ -37,7 +85,13 @@ export default function RegisterForm() {
 
         <div>
           <strong>Email Address</strong>
-          <input type="email" placeholder="Enter your email address" />
+          <input
+            type="email"
+            placeholder="Enter your email address"
+            value={form.email}
+            onChange={(event) => updateForm("email", event.target.value)}
+            required
+          />
         </div>
       </label>
 
@@ -48,7 +102,13 @@ export default function RegisterForm() {
 
         <div>
           <strong>Phone Number</strong>
-          <input type="tel" placeholder="Enter your phone number" />
+          <input
+            type="tel"
+            placeholder="Enter your phone number"
+            value={form.phone}
+            onChange={(event) => updateForm("phone", event.target.value)}
+            required
+          />
         </div>
       </label>
 
@@ -59,7 +119,13 @@ export default function RegisterForm() {
 
         <div>
           <strong>National ID / Ghana Card Number</strong>
-          <input type="text" placeholder="Enter your national ID number" />
+          <input
+            type="text"
+            placeholder="Enter your national ID number"
+            value={form.nationalId}
+            onChange={(event) => updateForm("nationalId", event.target.value)}
+            required
+          />
         </div>
       </label>
 
@@ -73,6 +139,9 @@ export default function RegisterForm() {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Create a strong password"
+            value={form.password}
+            onChange={(event) => updateForm("password", event.target.value)}
+            required
           />
         </div>
 
@@ -96,6 +165,9 @@ export default function RegisterForm() {
           <input
             type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm your password"
+            value={form.confirmPassword}
+            onChange={(event) => updateForm("confirmPassword", event.target.value)}
+            required
           />
         </div>
 
@@ -143,12 +215,10 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="create-account-btn"
-        onClick={() => navigate("/login")}
-      >
-        Create Account
+      {error ? <p className="register-error">{error}</p> : null}
+
+      <button type="submit" className="create-account-btn" disabled={loading}>
+        {loading ? "Creating account..." : "Create Account"}
       </button>
     </form>
   );

@@ -131,6 +131,7 @@ export default function ReviewApplicationPage() {
               `Collateral Value: ${application.collateral_value || "-"}`,
               `Ownership: ${formatChoice(application.collateral_ownership)}`,
               `Document: ${application.collateral_document || "-"}`,
+              `Upload Status: ${application.collateral_document_url ? "Uploaded" : "-"}`,
             ]}
           />
 

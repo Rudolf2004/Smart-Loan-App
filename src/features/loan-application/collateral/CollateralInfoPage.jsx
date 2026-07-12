@@ -10,7 +10,9 @@ import {
 } from "lucide-react";
 import "./collateralInfo.css";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 import { useLoanApplication } from "../../../contexts/useLoanApplication";
+import { uploadDocument } from "../../../services/authApi";
 
 const steps = [
   "Personal Info",
@@ -25,6 +27,8 @@ const steps = [
 export default function CollateralInfoPage() {
   const navigate = useNavigate();
   const { application, updateField } = useLoanApplication();
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
   const hasCollateral = application.collateral === "yes";
 
   const goNext = () => {
@@ -33,6 +37,24 @@ export default function CollateralInfoPage() {
     }
 
     navigate("/loan/guarantor-info");
+  };
+
+  const handleDocumentUpload = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      setUploadError("");
+      const document = await uploadDocument({ purpose: "collateral_document", file });
+      updateField("collateral_document", document.fileName);
+      updateField("collateral_document_url", document.url);
+    } catch (error) {
+      setUploadError(error.message);
+      event.target.value = "";
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -126,19 +148,22 @@ export default function CollateralInfoPage() {
                 <FileText />
               </div>
               <span className="input-value">
-                {application.collateral_document || "Choose a document"}
+                {uploading
+                  ? "Uploading document..."
+                  : application.collateral_document || "Choose a document"}
               </span>
-              <span className="upload-button">Browse</span>
+              <span className="upload-button">{uploading ? "Wait" : "Browse"}</span>
               <input
                 type="file"
                 accept=".pdf,.jpg,.jpeg,.png"
-                disabled={!hasCollateral}
-                onChange={(event) => {
-                  const fileName = event.target.files?.[0]?.name || "";
-                  updateField("collateral_document", fileName);
-                }}
+                disabled={!hasCollateral || uploading}
+                onChange={handleDocumentUpload}
               />
             </label>
+            {application.collateral_document_url ? (
+              <p className="character-count">Uploaded successfully.</p>
+            ) : null}
+            {uploadError ? <p className="character-count upload-error">{uploadError}</p> : null}
           </FormGroup>
 
           <FormGroup label="Any existing encumbrance on the asset?">

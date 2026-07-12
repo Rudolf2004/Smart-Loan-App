@@ -412,6 +412,13 @@
   color: #4285f4;
 }
 
+.google-button-wrap {
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+  overflow: hidden;
+}
+
 .create-text {
   position: relative;
   z-index: 3;

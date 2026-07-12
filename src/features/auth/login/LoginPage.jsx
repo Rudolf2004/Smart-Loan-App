@@ -7,39 +7,77 @@ import {
   ShieldCheck,
   Check,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../../contexts/useAuth";
 
 import MobileShell from "../../../components/layout/MobileShell";
 import "./login.css";
 
-const TEMP_LOGIN = {
-  identifier: "demo@smartloan.com",
-  phone: "0240000000",
-  password: "SmartLoan123",
-};
-
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { login, googleLogin } = useAuth();
+  const googleButtonRef = useRef(null);
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-  const handleLogin = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (!googleClientId || !googleButtonRef.current) return;
 
-    const normalizedIdentifier = identifier.trim().toLowerCase();
-    const isKnownUser =
-      normalizedIdentifier === TEMP_LOGIN.identifier ||
-      normalizedIdentifier === TEMP_LOGIN.phone;
+    const initializeGoogle = () => {
+      if (!window.google?.accounts?.id || !googleButtonRef.current) return;
 
-    if (isKnownUser && password === TEMP_LOGIN.password) {
-      setError("");
-      navigate("/dashboard");
+      window.google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: async (response) => {
+          try {
+            setError("");
+            await googleLogin(response.credential);
+            navigate("/dashboard");
+          } catch (googleError) {
+            setError(googleError.message);
+          }
+        },
+      });
+
+      googleButtonRef.current.innerHTML = "";
+      window.google.accounts.id.renderButton(googleButtonRef.current, {
+        theme: "outline",
+        size: "large",
+        width: 320,
+        text: "continue_with",
+      });
+    };
+
+    if (window.google?.accounts?.id) {
+      initializeGoogle();
       return;
     }
 
-    setError("Use the temporary login details shown below to access the home page.");
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = initializeGoogle;
+    document.body.appendChild(script);
+  }, [googleClientId, googleLogin, navigate]);
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      setLoading(true);
+      setError("");
+      await login(identifier, password);
+      navigate("/dashboard");
+    } catch (loginError) {
+      setError(loginError.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,13 +126,6 @@ export default function LoginPage() {
 
         <form className="login-card" onSubmit={handleLogin}>
           <h3>Login to your account</h3>
-
-          <div className="demo-login-box">
-            <strong>Temporary login</strong>
-            <span>Email: {TEMP_LOGIN.identifier}</span>
-            <span>Phone: {TEMP_LOGIN.phone}</span>
-            <span>Password: {TEMP_LOGIN.password}</span>
-          </div>
 
           <label className="login-field">
             <span className="field-icon">
@@ -147,8 +178,8 @@ export default function LoginPage() {
 
           {error ? <p className="login-error">{error}</p> : null}
 
-          <button type="submit" className="login-main-btn">
-            Login
+          <button type="submit" className="login-main-btn" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
             <ArrowRight size={30} />
           </button>
 
@@ -158,10 +189,13 @@ export default function LoginPage() {
             <span />
           </div>
 
-          <button type="button" className="google-btn">
-            <span className="google-icon">G</span>
-            Continue with Google
-          </button>
+          {googleClientId ? (
+            <div className="google-button-wrap" ref={googleButtonRef} />
+          ) : (
+            <p className="login-error">
+              Add VITE_GOOGLE_CLIENT_ID to enable Google sign-in.
+            </p>
+          )}
         </form>
 
         <p className="create-text">

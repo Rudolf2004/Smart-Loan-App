@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: smart-loan-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        sync: false
+      - key: PUBLIC_API_URL
+        sync: false
+      - key: AUTH_TOKEN_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: DATA_DIR
+        value: /var/data
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+    disk:
+      name: smart-loan-data
+      mountPath: /var/data
+      sizeGB: 1
