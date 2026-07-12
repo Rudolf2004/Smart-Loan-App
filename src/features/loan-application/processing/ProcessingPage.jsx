@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useLoanApplication } from "../../../contexts/useLoanApplication";
 import { submitLoanApplication } from "../../../services/loanApi";
 import MobileShell from "../../../components/layout/MobileShell";
-import { FileText } from "lucide-react";
+import { ArrowLeft, Check, FileText, ShieldCheck } from "lucide-react";
 import "./processing.css";
 
 const defaultSteps = [
@@ -27,7 +27,10 @@ export default function ProcessingPage() {
     setLocalError("");
 
     try {
-      const response = await submitLoanApplication(application);
+      const [response] = await Promise.all([
+        submitLoanApplication(application),
+        new Promise((resolve) => setTimeout(resolve, 5200)),
+      ]);
       if (!isActive()) return;
       setPrediction(response);
       setLoading(false);
@@ -51,14 +54,14 @@ export default function ProcessingPage() {
     let active = true;
     const timer = setTimeout(() => {
       void evaluate(() => active);
-    }, 0);
+    }, 350);
     return () => {
       active = false;
       clearTimeout(timer);
     };
   }, [evaluate]);
 
-  const progress = useMemo(() => 72, []); // target percent shown in mock
+  const progress = useMemo(() => 92, []);
   const [displayProgress, setDisplayProgress] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
@@ -71,7 +74,7 @@ export default function ProcessingPage() {
         const diff = progress - p;
         if (diff <= 0) return p;
         // increment by a fraction to ease to the target
-        const inc = Math.max(1, Math.round(diff * 0.12));
+        const inc = Math.max(1, Math.round(diff * 0.08));
         const next = Math.min(progress, p + inc);
         return next;
       });
@@ -94,10 +97,11 @@ export default function ProcessingPage() {
     <MobileShell>
       <main className="processing-page">
         <div className="processing-card">
+          <div className="processing-nav"><button onClick={() => navigate('/loan/review')} aria-label="Back"><ArrowLeft /></button><h1>Loan Application</h1><span /></div>
           <div className="processing-header">
-            <div className="processing-icon"><FileText size={22} /></div>
-            <h1>Loan Application</h1>
-            <p className="processing-sub">Evaluating Your Application</p>
+            <div className="processing-icon"><FileText size={29} /></div>
+            <h2>Evaluating Your Application</h2>
+            <p className="processing-sub">Please wait while we analyze your information<br />and calculate your eligibility.</p>
           </div>
 
           <div className="processing-body">
@@ -126,7 +130,7 @@ export default function ProcessingPage() {
               </svg>
 
               <div className="progress-caption">Processing...</div>
-              <div className="processing-timer">{seconds}s</div>
+              <div className="processing-timer" aria-live="polite">{seconds}s</div>
             </div>
 
             <ul className="processing-steps">
@@ -134,7 +138,7 @@ export default function ProcessingPage() {
                 <li key={s} className={i < 3 ? "done" : i === 3 ? "in-progress" : "pending"}>
                   <div className="step-dot-wrap">
                     {i < 3 ? (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0c8f45" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      <span className="step-complete"><Check size={18} /></span>
                     ) : i === 3 ? (
                       <div className="step-circle-active" />
                     ) : (
@@ -149,7 +153,7 @@ export default function ProcessingPage() {
               ))}
             </ul>
 
-            <p className="note">This may take a few seconds. Please avoid closing the app.</p>
+            <div className="note"><ShieldCheck size={23} /><span>This may take a few seconds.<br />Please do not close the app.</span></div>
 
             {localError ? (
               <div className="processing-error">

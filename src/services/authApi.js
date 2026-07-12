@@ -15,14 +15,19 @@ export function clearAuthToken() {
 
 async function apiRequest(path, options = {}) {
   const token = getAuthToken();
-  const response = await fetch(`${API_URL}${path}`, {
+  let response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options.headers,
     },
-  });
+    });
+  } catch {
+    throw new Error(`Cannot reach the server at ${API_URL}. Check VITE_API_URL and that the API is running.`);
+  }
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
