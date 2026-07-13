@@ -73,12 +73,19 @@ function localPresentationPrediction(application) {
 
 export async function submitLoanApplication(application) {
   const payloadToSend = normalizeApplication(application);
+  const controller = new AbortController();
+  // Never leave the processing screen waiting forever when a hosted API is
+  // sleeping or a mobile connection drops without rejecting the request.
+  const timeout = setTimeout(() => controller.abort(), 6500);
 
   const response = await fetch(`${API_URL}/api/predict`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payloadToSend),
-  }).catch(() => null);
+    signal: controller.signal,
+  })
+    .catch(() => null)
+    .finally(() => clearTimeout(timeout));
 
   if (!response) {
     return localPresentationPrediction(application);
