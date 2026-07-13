@@ -94,6 +94,12 @@ export async function submitLoanApplication(application) {
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    // A sleeping/unavailable hosted prediction service must not strand the
+    // application flow. Validation errors remain visible, while server-side
+    // outages use the deterministic client assessment.
+    if (response.status >= 500) {
+      return localPresentationPrediction(application);
+    }
     throw new Error(payload.error || "Unable to evaluate the loan application right now.");
   }
 

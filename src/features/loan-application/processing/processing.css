@@ -14,8 +14,8 @@
 .circular-chart .circle{fill:none;stroke:url(#ringGrad);stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
 .circular-chart .circle-inner{fill:#fff}
 .circular-chart .percentage{fill:#071746;text-anchor:middle;font-weight:800}
-.circular-chart .percent-num{font-size:28px;font-weight:900}
-.circular-chart .percent-sign{font-size:12px;fill:#6b7280;margin-left:4px}
+.circular-chart .percent-num{font-size:8px;font-weight:900}
+.circular-chart .percent-sign{font-size:4px;fill:#6b7280}
 
 .progress-caption{margin-top:8px;color:#31436d;font-size:13px}
 .processing-timer{display:none}
@@ -44,7 +44,7 @@
 @media (max-width: 480px){
 	.processing-card{padding:20px 16px}
 	.circular-chart{width:140px;height:140px}
-	.circular-chart .percentage{font-size:18px}
+	.circular-chart .percentage{font-size:8px}
 	.processing-body{margin-top:12px}
 	.processing-steps li{padding:10px 4px}
 }
