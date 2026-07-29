@@ -5,13 +5,14 @@ import "./index.css";
 import App from "./App.jsx";
 import { registerServiceWorker } from "./registerServiceWorker.js";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import { AccessibilityProvider } from "./contexts/AccessibilityContext.jsx";
+import LanguageGate from "./features/language-selection/LanguageGate.jsx";
+import AppTranslator from "./i18n/AppTranslator.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <AccessibilityProvider><AppTranslator><LanguageGate><AuthProvider><App /></AuthProvider></LanguageGate></AppTranslator></AccessibilityProvider>
     </BrowserRouter>
   </StrictMode>
 );

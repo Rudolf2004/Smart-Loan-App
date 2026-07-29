@@ -5,6 +5,7 @@ import QuickAccessGrid from "./QuickAccessGrid";
 import RecentActivity from "./RecentActivity";
 import FinancialTips from "./FinancialTips";
 import BottomNav from "../../components/layout/BottomNav";
+import DashboardLanguageSelector from "./DashboardLanguageSelector";
 import "./dashboard.css";
 
 export default function DashboardPage() {
@@ -12,6 +13,8 @@ export default function DashboardPage() {
     <main className="dashboard-page">
       <div className="dashboard-container">
         <DashboardHeader />
+
+        <DashboardLanguageSelector />
 
         <CreditScoreCard />
 

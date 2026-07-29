@@ -91,6 +91,8 @@
   margin-top: 3px;
 }
 
+.settings-select { display:block; width:100%; margin-top:6px; min-height:42px; border:1px solid #d2ddf2; border-radius:10px; background:#fff; color:#071746; padding:0 10px; }
+
 .chev {
   flex-shrink: 0;
   color: #9aa4b2;

@@ -506,6 +506,8 @@
   min-width: 0;
 }
 
+.dashboard-language{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px 12px;align-items:center;margin:-16px 0 22px;padding:13px;border:1px solid #cfe0f5;border-radius:16px;background:#fff;box-shadow:0 8px 22px rgba(8,45,105,.07)}.dashboard-language-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#eaf2ff;color:#0757df}.dashboard-language label{display:grid}.dashboard-language label strong{font-size:14px}.dashboard-language label span{color:#536083;font-size:11px;line-height:1.35}.dashboard-language select{grid-column:1/-1;width:100%;min-height:44px;border:1px solid #c9d6eb;border-radius:11px;background:#fff;color:#071746;padding:0 10px;font-weight:700}[data-theme="dark"] .dashboard-language{background:#17233a;border-color:#314462}[data-theme="dark"] .dashboard-language select{background:#0f1a2d;border-color:#314462;color:#f8fbff}
+
 .nav-item.active {
   color: #0757df;
 }

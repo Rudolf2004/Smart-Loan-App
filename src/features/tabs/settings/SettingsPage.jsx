@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import MobileShell from "../../../components/layout/MobileShell";
 import BottomNav from "../../../components/layout/BottomNav";
 import { useTheme } from "../../../contexts/useTheme";
+import { languages, useAccessibility } from "../../../contexts/accessibilityContext.js";
 import {
   Bell,
   ChevronRight,
@@ -26,6 +27,7 @@ import "./settings.css";
 export default function SettingsPage() {
   const navigate = useNavigate();
   const { theme, isDark, toggleTheme } = useTheme();
+  const { language, confirmLanguage, largeText, setLargeText, highContrast, setHighContrast } = useAccessibility();
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
@@ -95,7 +97,12 @@ export default function SettingsPage() {
         <section className="settings-section">
           <h3>Preferences</h3>
           <SettingButton icon={Bell} label="Notification Settings" meta="Push alerts on" />
-          <SettingButton icon={Globe} label="Language" meta="English" />
+          <div className="setting-row">
+            <div className="setting-left"><Globe size={18} /></div>
+            <label className="setting-middle" htmlFor="language-select"><span className="setting-label">Language</span><select id="language-select" className="settings-select" value={language} onChange={(event) => confirmLanguage(event.target.value)}>{languages.map((item) => <option key={item}>{item}</option>)}</select></label>
+          </div>
+          <PreferenceToggle label="Large text" meta="Increase text size throughout the app" active={largeText} onChange={() => setLargeText(!largeText)} />
+          <PreferenceToggle label="High contrast" meta="Strengthen visual contrast" active={highContrast} onChange={() => setHighContrast(!highContrast)} />
           <div className="setting-row">
             <div className="setting-left">{isDark ? <Moon size={18} /> : <Sun size={18} />}</div>
             <div className="setting-middle">
@@ -202,6 +209,10 @@ function SettingButton({ icon: Icon, label, meta, onClick }) {
       <ChevronRight className="chev" size={18} />
     </button>
   );
+}
+
+function PreferenceToggle({ label, meta, active, onChange }) {
+  return <div className="setting-row"><div className="setting-middle"><div className="setting-label">{label}</div><div className="setting-meta">{meta}</div></div><button className={`settings-toggle ${active ? "active" : ""}`} type="button" onClick={onChange} aria-pressed={active} aria-label={`${label}: ${active ? "on" : "off"}`}><span /></button></div>;
 }
 
 function PasswordField({ label, value, visible, onChange }) {

@@ -1,0 +1,5 @@
+.assistant-panel { display: flex; flex-direction: column; }
+.assistant-log { flex: 1; min-height: 0; }
+.assistant-voice-setting { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-bottom: 1px solid #dbe4f0; font-size: 12px; font-weight: 700; }
+.assistant-form button.listening { background: #dc2626; color: #fff; animation: voice-pulse 1s infinite; }
+@keyframes voice-pulse { 50% { transform: scale(1.08); } }

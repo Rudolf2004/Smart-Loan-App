@@ -5,6 +5,8 @@ import predictionRoutes from "./routes/prediction.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import uploadRoutes, { uploadRoot } from "./routes/upload.routes.js";
 import docsRoutes from "./routes/docs.routes.js";
+import assistantRoutes from "./routes/assistant.routes.js";
+import translationRoutes from "./routes/translation.routes.js";
 
 dotenv.config();
 
@@ -22,6 +24,8 @@ app.use(docsRoutes);
 app.use(authRoutes);
 app.use(uploadRoutes);
 app.use(predictionRoutes);
+app.use(assistantRoutes);
+app.use(translationRoutes);
 
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   console.error(err);
@@ -30,8 +34,8 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   }
 
   res.status(500).json({
-    error: "Prediction service unavailable.",
-    message: "The model prediction service could not complete the request.",
+    error: "Service unavailable.",
+    message: "The requested service could not complete the request.",
   });
 };
 

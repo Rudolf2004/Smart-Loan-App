@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Loan Application — Machine Learning and LLM Report</title>
+  <style>
+    :root{--ink:#13213c;--muted:#58677f;--blue:#0757df;--green:#0f766e;--line:#dbe4f0;--soft:#f4f8ff;--warn:#fff7ed}*{box-sizing:border-box}body{margin:0;background:#eaf0f8;color:var(--ink);font:16px/1.65 Arial,sans-serif}.toolbar{position:sticky;top:0;z-index:2;display:flex;justify-content:center;gap:12px;padding:12px;background:#13213ceF}.toolbar button{border:0;border-radius:9px;background:#fff;color:var(--blue);padding:10px 16px;font-weight:700;cursor:pointer}.report{width:min(900px,calc(100% - 28px));margin:24px auto 50px;background:#fff;padding:56px 64px;box-shadow:0 18px 60px #1a34522b}.cover{border-bottom:4px solid var(--green);padding-bottom:35px;margin-bottom:38px}.eyebrow{color:var(--green);font-weight:800;letter-spacing:.12em;text-transform:uppercase}.cover h1{font-size:38px;line-height:1.16;margin:12px 0}.subtitle{font-size:19px;color:var(--muted)}.meta{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:28px;color:var(--muted)}h2{font-size:26px;color:#073d9c;border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:40px}h3{font-size:19px;margin:26px 0 6px}p{margin:8px 0 14px}table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px}th,td{text-align:left;vertical-align:top;border:1px solid var(--line);padding:10px}th{background:var(--soft)}.callout{background:var(--warn);border-left:4px solid #f59e0b;padding:14px 16px;margin:20px 0}.success{background:#ecfdf5;border-left-color:var(--green)}code{background:var(--soft);padding:2px 5px;border-radius:4px}li{margin:6px 0}.footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}@media(max-width:650px){.report{padding:30px 22px}.cover h1{font-size:30px}.meta{grid-template-columns:1fr}table{display:block;overflow-x:auto}}@media print{body{background:#fff}.toolbar{display:none}.report{width:100%;margin:0;padding:20mm 17mm;box-shadow:none}h2{break-after:avoid}table,.callout{break-inside:avoid}}
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Report actions"><button type="button" onclick="window.print()">Print or save as PDF</button></nav>
+  <article class="report">
+    <header class="cover">
+      <div class="eyebrow">Technical Project Report</div>
+      <h1>Machine Learning and Multilingual LLM Support for the Smart Loan Application</h1>
+      <p class="subtitle">Problem statement, model description, evaluation, interpretation, conclusion, limitations, and recommendations</p>
+      <div class="meta"><span><strong>Project:</strong> Smart Loan App</span><span><strong>Report date:</strong> 22 July 2026</span><span><strong>Model family:</strong> Decision Tree Classifier</span><span><strong>AI assistant:</strong> OpenAI Responses API</span></div>
+    </header>
+
+    <section>
+      <h2>1. Introduction to the Problem Statement</h2>
+      <p>Access to responsible credit is difficult when application procedures are complex, documentation requirements are unclear, and customers have different literacy, language, or accessibility needs. Manual assessment can also be slow and inconsistent. The Smart Loan App addresses these problems through a mobile-oriented digital application process supported by an explainable machine-learning estimator and a multilingual educational assistant.</p>
+      <p>The central problem is to help applicants submit complete, understandable loan applications while giving trained staff a consistent, auditable indication of how an application resembles previously learned lending patterns. The system must not replace lawful underwriting, discriminate against protected groups, or permit a general-purpose language model to make final approval or rejection decisions.</p>
+      <h3>Project objectives</h3>
+      <ul>
+        <li>Collect and validate personal, employment, financial, loan, collateral, and guarantor information.</li>
+        <li>Transform application data into a consistent feature vector for machine-learning inference.</li>
+        <li>Return an advisory classification with class probabilities and confidence.</li>
+        <li>Explain forms, documents, and loan concepts in English, Twi, French, or Hausa.</li>
+        <li>Support people with disabilities through keyboard navigation, screen-reader labels, speech input, read-aloud output, large text, and high contrast.</li>
+        <li>Keep regulated lending decisions reviewable and under human control.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. Description of the Models Used</h2>
+      <h3>2.1 Decision Tree loan-estimation model</h3>
+      <p>The primary predictive model is a scikit-learn <strong>DecisionTreeClassifier</strong> exported into a versioned JSON bundle. The TypeScript backend validates the bundle and reproduces tree traversal during inference. At every internal node, a transformed feature is compared with a threshold; the application follows the left or right branch until reaching a leaf. Class counts stored at that leaf are normalized into percentages, and the class with the highest percentage becomes the advisory prediction.</p>
+      <p>The supported outcome classes are designed around <code>APPROVED</code>, <code>CONDITIONALLY_APPROVED</code>, and <code>REJECTED</code>. The interface deliberately describes them as predictions rather than final decisions.</p>
+      <h3>2.2 Input variables and feature engineering</h3>
+      <table>
+        <thead><tr><th>Category</th><th>Examples</th><th>Processing</th></tr></thead>
+        <tbody>
+          <tr><td>Applicant profile</td><td>Age, income, credit score</td><td>Numeric validation and imputation</td></tr>
+          <tr><td>Employment</td><td>Status and years employed</td><td>Categorical one-hot encoding and numeric processing</td></tr>
+          <tr><td>Loan request</td><td>Amount and purpose</td><td>Numeric processing and one-hot encoding</td></tr>
+          <tr><td>Current obligations</td><td>Existing debt</td><td>Used to calculate debt-to-income ratio</td></tr>
+          <tr><td>Security</td><td>Collateral availability and value</td><td>Used to calculate collateral-coverage ratio</td></tr>
+          <tr><td>Guarantors</td><td>Count, income, employment, valid ID</td><td>Creates a derived valid-guarantor indicator</td></tr>
+        </tbody>
+      </table>
+      <p>Three important engineered ratios are calculated: debt-to-income ratio, loan-to-income ratio, and collateral-coverage ratio. Missing numerical values use stored imputation statistics; categorical values use stored fallback categories and one-hot encoding. The backend checks that the final vector has exactly the number of features expected by the trained bundle.</p>
+
+      <h3>2.3 Multilingual large language model</h3>
+      <p>The application also contains an OpenAI Responses API integration for an educational “Smart Loan Guide.” This model is not part of the predictive decision tree and cannot change the eligibility result. It explains processes, forms, documents, and general lending concepts in the selected language. The deployment model is configurable using <code>OPENAI_MODEL</code>; the current example configuration uses <code>gpt-5.6-terra</code>.</p>
+      <p>System instructions prohibit the assistant from approving, denying, or ranking applicants; requesting passwords, PINs, full identification numbers, or banking credentials; using protected characteristics; or promising rates and outcomes. Requests require authentication, have content-length and conversation limits, are rate-limited, and are sent with API storage disabled.</p>
+      <div class="callout"><strong>Important distinction:</strong> the decision tree produces an advisory pattern classification. The LLM provides language and educational assistance. A trained human reviewer remains responsible for the final lending decision.</div>
+    </section>
+
+    <section>
+      <h2>3. Evaluation and Interpretation of Results</h2>
+      <h3>3.1 Verified software evaluation</h3>
+      <p>The server test suite was executed with Vitest. All <strong>7 of 7 automated tests passed</strong> across five test files. The tests verify feature-ratio calculations, guarantor validity, one-hot preprocessing, basic tree traversal, health and root API responses, and rejection of invalid prediction payloads. The frontend production build, backend TypeScript build, and ESLint checks also passed.</p>
+      <table>
+        <thead><tr><th>Evaluation area</th><th>Observed result</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Automated backend tests</td><td>7/7 passed</td><td>Implemented units behave as expected for the tested cases.</td></tr>
+          <tr><td>Feature engineering</td><td>Derived ratios and guarantor flag verified</td><td>Core financial transformations are deterministic.</td></tr>
+          <tr><td>Preprocessing</td><td>Expected encoded vector produced</td><td>Basic numerical and categorical transformation is functioning.</td></tr>
+          <tr><td>Tree inference</td><td>Synthetic tree traversal passed</td><td>The TypeScript inference mechanism can reach a leaf and normalize its class mass.</td></tr>
+          <tr><td>Input validation</td><td>Invalid payload rejected</td><td>Malformed applications are blocked before prediction.</td></tr>
+          <tr><td>Build quality</td><td>Frontend, backend, and lint passed</td><td>The current source compiles and meets configured static checks.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.2 Model-performance interpretation</h3>
+      <div class="callout"><strong>No defensible predictive accuracy can currently be reported.</strong> The repository does not contain the exported <code>loan_model_bundle.json</code>, held-out predictions, confusion matrix, precision, recall, F1 score, ROC-AUC, calibration analysis, or subgroup fairness results. Software tests are not a substitute for evaluation on unseen lending data.</div>
+      <p>When a trained bundle is supplied, its leaf confidence represents the proportion of training class mass at the reached leaf. This should not automatically be interpreted as a calibrated probability that a borrower will repay. A high leaf percentage can still be unreliable when the leaf contains few records, the deployment population differs from the training population, or the data contains historical bias.</p>
+      <p>A proper evaluation should use an untouched test set and report per-class precision, recall, F1 score, confusion matrix, balanced accuracy, and probability calibration. Because false approvals and false rejections have different financial and social consequences, both error directions must be examined separately. Results should also be compared across relevant, legally reviewed subgroups to identify unfair performance differences without feeding protected characteristics into automated decisions.</p>
+    </section>
+
+    <section>
+      <h2>4. Conclusion</h2>
+      <p>The Smart Loan App demonstrates a sound separation of responsibilities. Structured machine learning provides a transparent, reproducible estimate; the LLM improves comprehension and multilingual access; accessibility controls reduce interaction barriers; and human review remains the final authority. The current implementation has a validated software foundation, but it is not yet sufficient evidence for production lending decisions because empirical model-quality and fairness results are absent.</p>
+      <p>The most valuable outcome of the architecture is not automation alone, but accountable assistance: users receive clearer guidance, staff receive a consistent advisory signal, and the application retains explicit boundaries around sensitive and regulated decisions.</p>
+    </section>
+
+    <section>
+      <h2>5. Limitations</h2>
+      <ol>
+        <li><strong>Missing trained artifact:</strong> the required exported decision-tree bundle is not present in the repository.</li>
+        <li><strong>No dataset documentation:</strong> sample source, collection period, population, label definition, consent, missingness, and representativeness are unknown.</li>
+        <li><strong>No predictive metrics:</strong> accuracy and class-specific error rates cannot be verified from the available files.</li>
+        <li><strong>No fairness audit:</strong> disparate impact, equal-opportunity differences, and performance across relevant populations have not been measured.</li>
+        <li><strong>Decision-tree instability:</strong> a single tree can overfit and can change substantially with small changes in training data.</li>
+        <li><strong>Confidence may be uncalibrated:</strong> leaf class proportions are not guaranteed to be reliable real-world probabilities.</li>
+        <li><strong>LLM fallibility:</strong> the assistant can provide inaccurate or incomplete explanations despite its safeguards.</li>
+        <li><strong>Language coverage:</strong> interface-wide translation is not yet complete, and speech quality depends on browser support and available voices.</li>
+        <li><strong>Accessibility validation:</strong> automated features are present, but formal WCAG testing with users who have disabilities has not yet been completed.</li>
+        <li><strong>Regulatory dependency:</strong> deployment requirements vary by jurisdiction and require specialist legal, privacy, and compliance review.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>6. Recommendations</h2>
+      <ol>
+        <li>Document the dataset and outcome label, establish lawful use, remove leakage, and create reproducible train/validation/test splits.</li>
+        <li>Export the trained model with training metadata and a model card containing intended use, excluded uses, version, owner, and review date.</li>
+        <li>Report confusion matrices and per-class precision, recall, F1, balanced accuracy, calibration, and decision thresholds on an untouched test set.</li>
+        <li>Conduct legally reviewed fairness testing and investigate disparities before deployment. Disability and other protected traits must not reduce access or influence automated outcomes.</li>
+        <li>Compare the single decision tree with interpretable logistic regression and constrained ensemble alternatives. Choose using quality, stability, explainability, and fairness—not accuracy alone.</li>
+        <li>Add applicant-facing reason codes based on validated decision paths, with an appeal and correction process overseen by staff.</li>
+        <li>Monitor data drift, model drift, overrides, complaints, and subgroup performance; define rollback triggers and periodic revalidation.</li>
+        <li>Complete professional translation and community review for English, Twi, French, and Hausa across the full interface.</li>
+        <li>Run WCAG 2.2 AA audits and usability sessions involving screen-reader users and people with visual, hearing, motor, and cognitive disabilities.</li>
+        <li>Evaluate the LLM using a multilingual question set covering accuracy, harmful advice, prompt injection, privacy leakage, refusal behavior, and human-escalation quality.</li>
+        <li>Keep API keys server-side, minimize retained personal data, encrypt sensitive information, maintain access logs, and perform threat modelling.</li>
+        <li>Do not move to automated approval or denial without validated evidence, documented governance, human oversight, and jurisdiction-specific legal approval.</li>
+      </ol>
+      <div class="callout success"><strong>Recommended deployment position:</strong> use the present system as an educational and decision-support prototype. Promote it to a production lending workflow only after the missing data, performance, fairness, accessibility, security, and compliance evidence has been completed and independently reviewed.</div>
+    </section>
+
+    <footer class="footer">Prepared from the Smart Loan App source implementation and the verified local test run. This report is a technical assessment, not legal, financial, or regulatory advice.</footer>
+  </article>
+</body>
+</html>

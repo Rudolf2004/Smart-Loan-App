@@ -24,8 +24,11 @@ import ProcessingPage from "./features/loan-application/processing";
 import AssessmentResultPage from "./features/loan-application/result";
 import ApprovedResultPage from "./features/loan-application/result/ApprovedResultPage";
 import RejectedResultPage from "./features/loan-application/result/RejectedResultPage";
+import LoanAssistant from "./components/assistant/LoanAssistant";
+import VoiceFormGuide from "./components/assistant/VoiceFormGuide";
 
 export default function App() {
+  const { isAuthenticated } = useAuth();
   return (
     <ThemeProvider>
       <LoanApplicationProvider>
@@ -53,6 +56,8 @@ export default function App() {
           <Route path="/loan/result/rejected" element={<RequireAuth><RejectedResultPage /></RequireAuth>} />
           <Route path="*" element={<RequireAuth><DashboardPage /></RequireAuth>} />
         </Routes>
+        {isAuthenticated ? <LoanAssistant /> : null}
+        {isAuthenticated ? <VoiceFormGuide /> : null}
       </LoanApplicationProvider>
     </ThemeProvider>
   );
