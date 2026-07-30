@@ -17,9 +17,9 @@ describe("Loan prediction API", () => {
     expect(response.body.message).toContain("Loan Approval Machine Learning API");
   });
 
-  it("rejects invalid prediction payloads", async () => {
+  it("protects prediction submissions with authentication", async () => {
     const response = await request(app).post("/api/predict").send({ age: "young" });
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(401);
   });
 });

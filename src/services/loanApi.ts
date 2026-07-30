@@ -1,3 +1,5 @@
+import { getAuthToken } from "./authApi.js";
+
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const numericFields = [
@@ -80,7 +82,7 @@ export async function submitLoanApplication(application) {
 
   const response = await fetch(`${API_URL}/api/predict`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getAuthToken()}` },
     body: JSON.stringify(payloadToSend),
     signal: controller.signal,
   })

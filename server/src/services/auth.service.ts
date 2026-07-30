@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { createHmac, randomBytes, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -18,6 +19,8 @@ export type AuthUser = {
   passwordHash?: string;
   googleSub?: string;
   provider: "password" | "google";
+  role?: "customer" | "admin";
+  status?: "active" | "suspended";
   createdAt: string;
 };
 
@@ -34,17 +37,35 @@ type UserRow = {
   password_hash: string | null;
   google_sub: string | null;
   provider: "password" | "google";
+  role: "customer" | "admin";
+  status: "active" | "suspended";
   created_at: Date;
 };
 
 export type PublicUser = Omit<AuthUser, "passwordHash" | "googleSub">;
+
+function configuredAdmin(email: string) {
+  return (process.env.ADMIN_EMAILS || "")
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean)
+    .includes(email.toLowerCase());
+}
+
+function normalizeAccess(user: AuthUser): AuthUser {
+  return {
+    ...user,
+    role: configuredAdmin(user.email) ? "admin" : user.role || "customer",
+    status: user.status || "active",
+  };
+}
 
 function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
 
 function fromUserRow(row: UserRow): AuthUser {
-  return {
+  return normalizeAccess({
     id: row.id,
     fullName: row.full_name,
     email: row.email,
@@ -53,8 +74,10 @@ function fromUserRow(row: UserRow): AuthUser {
     passwordHash: row.password_hash || undefined,
     googleSub: row.google_sub || undefined,
     provider: row.provider,
+    role: row.role,
+    status: row.status,
     createdAt: row.created_at.toISOString(),
-  };
+  });
 }
 
 async function ensureStore() {
@@ -93,7 +116,7 @@ async function verifyPassword(password: string, storedHash = "") {
 }
 
 export function toPublicUser(user: AuthUser): PublicUser {
-  const { passwordHash: _passwordHash, googleSub: _googleSub, ...publicUser } = user;
+  const { passwordHash: _passwordHash, googleSub: _googleSub, ...publicUser } = normalizeAccess(user);
   return publicUser;
 }
 
@@ -144,7 +167,34 @@ export async function findUserById(id: string) {
   }
 
   const store = await readUsers();
-  return store.users.find((user) => user.id === id) || null;
+  const user = store.users.find((entry) => entry.id === id);
+  return user ? normalizeAccess(user) : null;
+}
+
+export async function listUsers() {
+  if (pool) {
+    const result = await pool.query<UserRow>("SELECT * FROM users ORDER BY created_at DESC");
+    return result.rows.map((row) => toPublicUser(fromUserRow(row)));
+  }
+  const store = await readUsers();
+  return store.users.map((user) => toPublicUser(user)).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function updateUserAccess(id: string, input: { role?: "customer" | "admin"; status?: "active" | "suspended" }) {
+  if (pool) {
+    const result = await pool.query<UserRow>(
+      `UPDATE users SET role = COALESCE($2, role), status = COALESCE($3, status) WHERE id = $1 RETURNING *`,
+      [id, input.role || null, input.status || null],
+    );
+    return result.rows[0] ? toPublicUser(fromUserRow(result.rows[0])) : null;
+  }
+  const store = await readUsers();
+  const user = store.users.find((entry) => entry.id === id);
+  if (!user) return null;
+  if (input.role) user.role = input.role;
+  if (input.status) user.status = input.status;
+  await writeUsers(store);
+  return toPublicUser(user);
 }
 
 export async function registerUser(input: {

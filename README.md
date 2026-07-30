@@ -26,6 +26,16 @@ npm run dev
 
 The client runs at `http://localhost:5173` and the API at `http://localhost:8000`. Use `npm run dev:web` or `npm run dev:api` when only one service is needed.
 
+## Administration
+
+The administrator portal is available at `/admin`. Add one or more existing account email addresses to `server/.env` before starting the app:
+
+```env
+ADMIN_EMAILS=admin@example.com,manager@example.com
+```
+
+Those accounts are redirected to the administrator portal after login. Administrators can view live totals, review every submitted application, record a human decision and note, request more information, manage user roles, and suspend or reactivate accounts. The ML recommendation remains advisory; the administrator action is stored as the human decision.
+
 ## AI loan guide
 
 The app supports nine interface and assistant languages: English, Twi, French, Hausa, Ga, Ewe, Spanish, Portuguese, and Arabic. Selecting a language updates the full static interface, speech recognition, spoken responses, and document language; Arabic also enables right-to-left layout.

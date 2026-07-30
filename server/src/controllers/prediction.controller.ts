@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { loanApplicationSchema } from "../schemas/loanApplication.js";
 import { predictLoanApplication } from "../services/prediction.service.js";
+import { createApplication } from "../services/application.service.js";
 
 export async function predictLoanController(
   req: Request,
@@ -17,7 +18,8 @@ export async function predictLoanController(
     }
 
     const result = await predictLoanApplication(parsed.data);
-    return res.json(result);
+    const application = await createApplication(req.user!.id, parsed.data, result);
+    return res.json({ ...result, applicationId: application.id, status: application.status });
   } catch (error) {
     next(error);
   }

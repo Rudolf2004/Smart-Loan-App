@@ -13,7 +13,7 @@ export function clearAuthToken() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
-async function apiRequest(path, options = {}) {
+export async function apiRequest(path, options = {}) {
   const token = getAuthToken();
   let response;
   try {

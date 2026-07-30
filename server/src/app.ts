@@ -7,6 +7,8 @@ import uploadRoutes, { uploadRoot } from "./routes/upload.routes.js";
 import docsRoutes from "./routes/docs.routes.js";
 import assistantRoutes from "./routes/assistant.routes.js";
 import translationRoutes from "./routes/translation.routes.js";
+import applicationRoutes from "./routes/application.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ app.use(uploadRoutes);
 app.use(predictionRoutes);
 app.use(assistantRoutes);
 app.use(translationRoutes);
+app.use(applicationRoutes);
+app.use(adminRoutes);
 
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   console.error(err);

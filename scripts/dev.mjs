@@ -1,9 +1,18 @@
 import { spawn } from "node:child_process";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const serverDir = path.join(rootDir, "server");
+const viteCli = path.join(rootDir, "node_modules", "vite", "bin", "vite.js");
+const tsxCli = path.join(serverDir, "node_modules", "tsx", "dist", "cli.mjs");
+
 const children = [
-  spawn(npmCommand, ["run", "dev:web"], { stdio: "inherit" }),
-  spawn(npmCommand, ["--prefix", "server", "run", "dev"], { stdio: "inherit" }),
+  spawn(process.execPath, [viteCli], { cwd: rootDir, stdio: "inherit" }),
+  spawn(process.execPath, [tsxCli, "watch", "src/index.ts"], {
+    cwd: serverDir,
+    stdio: "inherit",
+  }),
 ];
 
 let stopping = false;

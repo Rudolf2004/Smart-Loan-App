@@ -1,4 +1,4 @@
-import { Navigate, Routes, Route } from "react-router";
+import { Navigate, Routes, Route, useLocation } from "react-router";
 
 import { LoanApplicationProvider } from "./contexts/LoanApplicationContext.jsx";
 import { ThemeProvider } from "./contexts/ThemeContext.jsx";
@@ -26,9 +26,11 @@ import ApprovedResultPage from "./features/loan-application/result/ApprovedResul
 import RejectedResultPage from "./features/loan-application/result/RejectedResultPage";
 import LoanAssistant from "./components/assistant/LoanAssistant";
 import VoiceFormGuide from "./components/assistant/VoiceFormGuide";
+import AdminPage from "./features/admin/AdminPage";
 
 export default function App() {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
   return (
     <ThemeProvider>
       <LoanApplicationProvider>
@@ -43,6 +45,7 @@ export default function App() {
           <Route path="/applications" element={<RequireAuth><ApplicationsPage /></RequireAuth>} />
           <Route path="/notifications" element={<RequireAuth><NotificationsPage /></RequireAuth>} />
           <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
           <Route path="/loan/personal-info" element={<RequireAuth><PersonalInfoPage /></RequireAuth>} />
           <Route path="/loan/employment-info" element={<RequireAuth><EmploymentInfoPage /></RequireAuth>} />
           <Route path="/loan/financial-info" element={<RequireAuth><FinancialInfoPage /></RequireAuth>} />
@@ -56,8 +59,8 @@ export default function App() {
           <Route path="/loan/result/rejected" element={<RequireAuth><RejectedResultPage /></RequireAuth>} />
           <Route path="*" element={<RequireAuth><DashboardPage /></RequireAuth>} />
         </Routes>
-        {isAuthenticated ? <LoanAssistant /> : null}
-        {isAuthenticated ? <VoiceFormGuide /> : null}
+        {isAuthenticated && location.pathname !== "/admin" ? <LoanAssistant /> : null}
+        {isAuthenticated && location.pathname !== "/admin" ? <VoiceFormGuide /> : null}
       </LoanApplicationProvider>
     </ThemeProvider>
   );
@@ -69,5 +72,13 @@ function RequireAuth({ children }) {
   if (loading) return null;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
 
+  return children;
+}
+
+function RequireAdmin({ children }) {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role !== "admin") return <Navigate to="/dashboard" replace />;
   return children;
 }

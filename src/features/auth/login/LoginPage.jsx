@@ -35,8 +35,8 @@ export default function LoginPage() {
         callback: async (response) => {
           try {
             setError("");
-            await googleLogin(response.credential);
-            navigate("/dashboard");
+            const nextUser = await googleLogin(response.credential);
+            navigate(nextUser.role === "admin" ? "/admin" : "/dashboard");
           } catch (googleError) {
             setError(googleError.message);
           }
@@ -71,8 +71,8 @@ export default function LoginPage() {
     try {
       setLoading(true);
       setError("");
-      await login(identifier, password);
-      navigate("/dashboard");
+      const nextUser = await login(identifier, password);
+      navigate(nextUser.role === "admin" ? "/admin" : "/dashboard");
     } catch (loginError) {
       setError(loginError.message);
     } finally {

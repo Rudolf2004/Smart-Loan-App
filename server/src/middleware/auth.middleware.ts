@@ -25,6 +25,19 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
     return;
   }
 
+  if (user.status === "suspended") {
+    res.status(403).json({ error: "This account has been suspended. Contact support." });
+    return;
+  }
+
   req.user = toPublicUser(user);
+  next();
+}
+
+export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!req.user || req.user.role !== "admin") {
+    res.status(403).json({ error: "Administrator access required." });
+    return;
+  }
   next();
 }
