@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:8000" : "");
 const TOKEN_KEY = "smartLoanAuthToken";
 
 export function getAuthToken() {
@@ -18,6 +18,7 @@ export async function apiRequest(path, options = {}) {
   let response;
   try {
     response = await fetch(`${API_URL}${path}`, {
+    cache: "no-store",
     ...options,
     headers: {
       "Content-Type": "application/json",

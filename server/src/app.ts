@@ -14,6 +14,10 @@ dotenv.config();
 
 const app = express();
 app.use(express.json({ limit: "10mb" }));
+app.use("/api", (_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  next();
+});
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || "http://localhost:5173",

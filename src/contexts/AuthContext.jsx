@@ -35,21 +35,24 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = useCallback(async (identifier, password) => {
-    const nextUser = await loginAccount(identifier, password);
-    setUser(nextUser);
-    return nextUser;
+    await loginAccount(identifier, password);
+    const verifiedUser = await getCurrentUser();
+    setUser(verifiedUser);
+    return verifiedUser;
   }, []);
 
   const register = useCallback(async (data) => {
-    const nextUser = await registerAccount(data);
-    setUser(nextUser);
-    return nextUser;
+    await registerAccount(data);
+    const verifiedUser = await getCurrentUser();
+    setUser(verifiedUser);
+    return verifiedUser;
   }, []);
 
   const googleLogin = useCallback(async (credential) => {
-    const nextUser = await loginWithGoogle(credential);
-    setUser(nextUser);
-    return nextUser;
+    await loginWithGoogle(credential);
+    const verifiedUser = await getCurrentUser();
+    setUser(verifiedUser);
+    return verifiedUser;
   }, []);
 
   const logout = useCallback(() => {
