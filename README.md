@@ -36,6 +36,8 @@ ADMIN_EMAILS=admin@example.com,manager@example.com
 
 Those accounts are redirected to the administrator portal after login. Administrators can view live totals, review every submitted application, record a human decision and note, request more information, manage user roles, and suspend or reactivate accounts. The ML recommendation remains advisory; the administrator action is stored as the human decision.
 
+For a one-time production password recovery, set `ADMIN_PASSWORD_RESET=true`, `ADMIN_RESET_EMAIL`, and `ADMIN_RESET_PASSWORD` on the backend service and deploy once. After the successful startup message, immediately remove `ADMIN_PASSWORD_RESET` and `ADMIN_RESET_PASSWORD` and redeploy. Never leave the recovery switch enabled.
+
 ## AI loan guide
 
 The app supports nine interface and assistant languages: English, Twi, French, Hausa, Ga, Ewe, Spanish, Portuguese, and Arabic. Selecting a language updates the full static interface, speech recognition, spoken responses, and document language; Arabic also enables right-to-left layout.
