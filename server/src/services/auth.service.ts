@@ -297,6 +297,27 @@ export async function loginUser(identifier: string, password: string) {
   return user;
 }
 
+export async function resetPasswordByEmail(emailAddress: string, password: string) {
+  const email = normalizeEmail(emailAddress);
+  const passwordHash = await hashPassword(password);
+
+  if (pool) {
+    const result = await pool.query<UserRow>(
+      "UPDATE users SET password_hash = $2, provider = 'password' WHERE email = $1 RETURNING *",
+      [email, passwordHash],
+    );
+    return result.rows[0] ? toPublicUser(fromUserRow(result.rows[0])) : null;
+  }
+
+  const store = await readUsers();
+  const user = store.users.find((entry) => entry.email === email);
+  if (!user) return null;
+  user.passwordHash = passwordHash;
+  user.provider = "password";
+  await writeUsers(store);
+  return toPublicUser(user);
+}
+
 export async function upsertGoogleUser(profile: {
   sub: string;
   email: string;
