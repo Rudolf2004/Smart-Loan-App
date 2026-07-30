@@ -61,7 +61,7 @@ export default function AdminPage() {
         <button className={tab === "users" ? "active" : ""} onClick={() => setTab("users")}><Users />Users</button>
       </nav>
       <div className="admin-sidebar-actions">
-        <button className="admin-exit" onClick={() => navigate("/dashboard")}>Customer app</button>
+        <button className="admin-exit" onClick={() => navigate("/applications")}>Customer records</button>
         <button className="admin-logout" onClick={logout}><LogOut />Sign out</button>
       </div>
     </aside>

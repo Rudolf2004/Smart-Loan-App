@@ -40,7 +40,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+          <Route path="/dashboard" element={<RequireDashboard><DashboardPage /></RequireDashboard>} />
           <Route path="/loans" element={<RequireAuth><LoansPage /></RequireAuth>} />
           <Route path="/applications" element={<RequireAuth><ApplicationsPage /></RequireAuth>} />
           <Route path="/notifications" element={<RequireAuth><NotificationsPage /></RequireAuth>} />
@@ -80,5 +80,13 @@ function RequireAdmin({ children }) {
   if (loading) return null;
   if (!user) return <Navigate to="/login" replace />;
   if (user.role !== "admin") return <Navigate to="/dashboard" replace />;
+  return children;
+}
+
+function RequireDashboard({ children }) {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role === "admin") return <Navigate to="/admin" replace />;
   return children;
 }
